@@ -1,0 +1,24 @@
+.image-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 30%; 
+}
+
+// .cover {
+//   max-width: 100%; /* Optional: Set the maximum width of the image */
+//   max-height: 100%; /* Optional: Set the maximum height of the image */
+// }
+
+.categories {
+    .button-container {
+      display: flex;
+      justify-content: center;
+    }
+  
+    .button {
+        width: 20%;
+        margin: 0 5px;
+    }
+  }
+  
