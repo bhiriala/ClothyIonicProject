@@ -1,0 +1,40 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>Reclothy</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  
+  <ion-searchbar placeholder="Search for clothes..." debounce="500"></ion-searchbar>
+
+  <div class="image-container">
+    <img src="../../../assets/cover.png" alt="Image Description" class="cover">
+  </div>
+    
+
+  <ion-card>
+    <ion-card-header>
+      Categories
+    </ion-card-header>
+    <ion-card-content class="categories">
+      <div class="button-container">
+        <ion-button class="button">Women</ion-button>
+        <ion-button class="button">Men</ion-button>
+      </div>
+    </ion-card-content>
+  </ion-card>
+    
+  
+
+  <ion-row>
+    <ng-container *ngFor="let article of articles">
+      <app-clothes-article [article]="article" ></app-clothes-article>
+    </ng-container>
+  </ion-row>
+    
+
+  
+
+</ion-content>
+
