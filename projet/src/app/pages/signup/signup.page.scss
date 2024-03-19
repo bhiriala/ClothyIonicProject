@@ -1,0 +1,79 @@
+.content-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    height: 100%;
+  }
+  
+  .signupcontent {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-image: url('../../../assets/signup.png');
+    background-size: cover;
+    background-position: center;
+    height: 100%;
+    transform: translate(25px,2px);
+  }
+  .signup-section {
+    margin-top: 20px;
+    margin-left: 14px;
+    font-size: 44px;
+    color: rgb(55, 52, 52);
+  
+  }
+  .inputs{
+    margin-bottom: 70px;
+  }
+  .color{
+    margin-left: 50px;
+    width: 290px;
+    border-radius: 20px;
+    background-color:rgb(252, 252, 252,0.1);
+}
+
+.password-item {
+  color: black;
+  border-radius: 10px;
+--background: rgba(183, 181, 177, 0.37); 
+}
+
+.email-item {
+  color: black;
+  border-radius: 10px;
+  margin-bottom: 14px;
+--background: rgba(183, 181, 177, 0.37);
+}
+.phone-item {
+  color: black;
+  border-radius: 10px;
+--background: rgba(183, 181, 177, 0.37);
+margin-bottom: 14px; 
+}
+
+.username-item {
+  color: black;
+  border-radius: 10px;
+  margin-top: 15px;
+--background: rgba(183, 181, 177, 0.37);
+margin-bottom: 14px; 
+}
+.button{
+  margin-left: 24px;
+  margin-bottom: auto;
+  width: 120px;
+}
+.password-item ion-icon {
+  margin-right: 8px; 
+}
+.email-item ion-icon {
+  margin-right: 8px; 
+}
+.username-item ion-icon {
+  margin-right: 8px; 
+}
+.phone-item ion-icon {
+  margin-right: 8px; 
+}
