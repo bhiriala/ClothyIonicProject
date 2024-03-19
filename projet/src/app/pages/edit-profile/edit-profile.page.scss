@@ -1,0 +1,46 @@
+.title {
+    flex: 1; /* This will make the title take up remaining space */
+    text-align: center;
+  }
+
+.header-icon{
+    margin-left: 10px;
+}
+
+.content-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+}
+
+.profile-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.profile-picture-container {
+    width: 150px; 
+    height: 150px; 
+    border-radius: 50%;
+    overflow: hidden;
+    margin-bottom: 20px; 
+    margin-top: 50px;
+}
+
+.profile-picture {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.input-item {
+    max-width: 300px; 
+    width: 100%;
+    margin-bottom: 20px; 
+}
+
+.save-button {
+    margin-top: 20px; 
+}

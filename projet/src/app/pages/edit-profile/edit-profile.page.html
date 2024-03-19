@@ -1,0 +1,51 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button default-href="/tabs/home-page"></ion-back-button>
+    </ion-buttons>
+    <ion-title class="title">Edit Profile</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true" class="content-container">
+  <div class="profile-content">
+    
+    <div class="profile-picture-container">
+      <img src="../../../assets/cover.png" alt="Profile Picture" class="profile-picture">
+    </div>
+
+    <ion-item class="input-item">
+      <ion-label position="floating">Username</ion-label>
+      <ion-input [value]="inputModel" (ionInput)="onInput($event)" [(ngModel)]="username" #ionInputEl></ion-input>
+    </ion-item>
+    
+    <ion-item class="input-item">
+      <ion-label position="floating">Phone</ion-label>
+      <ion-input type="tel" inputmode="numeric" pattern="[0-9]{8}" [(ngModel)]="phone"></ion-input>
+    </ion-item>
+    
+    <ion-item class="input-item">
+      <ion-label position="floating">Email</ion-label>
+      <ion-input   type="email"
+      labelPlacement="floating"
+      helperText="Enter a valid email"
+      errorText="Invalid email"
+      [(ngModel)]="email"
+      email></ion-input>
+    </ion-item>
+
+    <ion-item class="input-item">
+      <ion-label position="floating">Password</ion-label>
+      <ion-input type="{{ showPassword ? 'text' : 'password' }}" placeholder="***********" [(ngModel)]="password"></ion-input>
+      <ion-icon slot="start" name="lock-closed"></ion-icon>
+      <ion-button fill="clear" slot="end" (click)="togglePasswordVisibility()" [attr.aria-label]="'Show/hide ' + (showPassword ? 'password' : 'text')">
+        <ion-icon slot="icon-only" [name]="showPassword ? 'eye-off' : 'eye'"></ion-icon>
+      </ion-button>
+    </ion-item>
+
+    <ion-button expand="block" class="save-button" (click)="saveChanges()">Save Changes</ion-button>
+  </div>
+</ion-content>
+
+
+

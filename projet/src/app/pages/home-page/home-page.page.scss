@@ -1,3 +1,7 @@
+ion-toolbar {
+  padding-left: 30px;
+}
+
 .image-container {
   display: flex;
   justify-content: center;
@@ -5,20 +9,22 @@
   height: 30%; 
 }
 
-// .cover {
-//   max-width: 100%; /* Optional: Set the maximum width of the image */
-//   max-height: 100%; /* Optional: Set the maximum height of the image */
-// }
+.cover {
+  max-width: 100%; /* Optional: Set the maximum width of the image */
+  max-height: 100%; /* Optional: Set the maximum height of the image */
+}
 
 .categories {
-    .button-container {
-      display: flex;
-      justify-content: center;
-    }
-  
-    .button {
-        width: 20%;
-        margin: 0 5px;
-    }
+  .button-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
   }
+
+  .button{
+    margin: 5px; /* Adjust as needed */
+    
+  }
+}
+
   
