@@ -1,5 +1,6 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
+    <ion-icon slot="start" name="shirt-outline"></ion-icon>
     <ion-title>Reclothy</ion-title>
   </ion-toolbar>
 </ion-header>
@@ -14,22 +15,29 @@
     
 
   <ion-card>
-    <ion-card-header>
-      Categories
-    </ion-card-header>
     <ion-card-content class="categories">
+      <h1>Categories</h1>
       <div class="button-container">
-        <ion-button class="button">Women</ion-button>
-        <ion-button class="button">Men</ion-button>
+        <ion-button class="button" color="dark">
+          <ion-icon slot="start" name="woman"></ion-icon>
+          Women
+        </ion-button>
+        <ion-button class="button" color="dark">
+          <ion-icon slot="start" name="man"></ion-icon>
+          Men
+        </ion-button>
       </div>
     </ion-card-content>
   </ion-card>
   
-  <ion-row>
+  
+  <ion-row class="ion-justify-content-center ">
     <ng-container *ngFor="let article of articles">
       <app-clothes-article [article]="article" ></app-clothes-article>
     </ng-container>
   </ion-row>
+
 </ion-content>
+
 
 
