@@ -9,17 +9,13 @@
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  <!-- Cover picture -->
-  <div class="cover-container">
-    <img [src]="covpic" class="couverture">
-  </div>
 
-  <!-- Profile picture -->
-  <div class="profile-picture-container">
+  <div>
+    <img [src]="covpic" class="couverture">
     <img [src]="profilpic" alt="Profile Picture" class="profile-picture">
   </div>
 
-  <!-- Personal information -->
+
   <div class="personal-info">
     <ion-item lines="none">
       <ion-icon name="call-outline" class="info-icon" slot="start"></ion-icon>
@@ -37,8 +33,8 @@
   </ion-button>
 
 
-  <!-- My Articles -->
-  <p class="text ion-text-center">My Articles</p>
+
+  <p class="text">My Articles :</p>
 
   <ion-row class="ion-justify-content-center">
     <ng-container *ngFor="let article of articles">
@@ -46,4 +42,3 @@
     </ng-container>
   </ion-row>
 </ion-content>
-

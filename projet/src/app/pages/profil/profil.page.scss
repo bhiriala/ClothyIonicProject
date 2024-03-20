@@ -1,8 +1,9 @@
 
 .couverture{
-    width: 100%;
+    width: 96%;
     height: 15%;
     padding: 2%;   
+    margin-left: 2%;
 }
   
 .profile-picture {
@@ -10,10 +11,9 @@
     height: 20%;
     border-radius: 50%;
     overflow: hidden;
-    display: flexbox;
-    align-self: center;
     margin-left: 40%;
-    margin-top: -10%;
+    margin-top: -12%;
+    margin-bottom: 15px;
 }
   
 .personal-info {
@@ -26,12 +26,13 @@
 }
   
 .edit-button {
-    margin-top: 2%;
-    max-width: 20%;
-    margin-left: 40%;
-    margin-bottom: 5%;
+    margin-top: 6%;
+   width: 48%;
+    margin-left: 24%;
+    margin-bottom: 9%;
 }
     
 .text{
     font-size: larger;
+    margin-left: 7%;
 }
