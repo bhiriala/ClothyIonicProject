@@ -7,7 +7,9 @@ import { Component, Input } from '@angular/core';
 })
 export class MyarticlesComponent {
   @Input() article: any;
-  
+
+ 
+
   constructor() { }
 
   ngOnInit() {}
