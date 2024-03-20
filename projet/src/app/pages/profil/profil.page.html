@@ -9,22 +9,25 @@
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  <!-- Cover picture -->
+
   <div class="cover-container">
     <img [src]="covpic" class="couverture">
   </div>
 
-  <!-- Profile picture -->
   <div class="profile-picture-container">
     <img [src]="profilpic" alt="Profile Picture" class="profile-picture">
   </div>
 
-  <!-- Personal information -->
   <div class="personal-info">
     <ion-item lines="none">
       <ion-icon name="call-outline" class="info-icon" slot="start"></ion-icon>
       <ion-label>25763502</ion-label>
     </ion-item>
+
+    <ion-item lines="none">
+      <ion-label>Ala Bhiri</ion-label>
+    </ion-item>
+
     <ion-item lines="none">
       <ion-icon name="mail-outline" class="info-icon" slot="start"></ion-icon>
       <ion-label>bhiriala577mail.com</ion-label>
@@ -36,8 +39,6 @@
     <ion-icon name="chevron-forward-outline" slot="end"></ion-icon>
   </ion-button>
 
-
-  <!-- My Articles -->
   <p class="text ion-text-center">My Articles</p>
 
   <ion-row class="ion-justify-content-center">
