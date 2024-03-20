@@ -30,6 +30,7 @@
   padding: 5%;
   font-size: 2em; 
   margin-bottom: 20px;
+  color: black;
 }
 
 .text-section {
@@ -37,38 +38,45 @@
   text-align: center;
   margin-bottom: 20px;
   padding: 2%;
+  color: black;
 }
 
 .inputs {
-  width: 60%;
+  margin-top: 10px;
+  width: 87%;
   padding: 2%;
   background-color: rgba(255, 255, 255, 0); 
 }
 
 
 .email-item, .password-item {
-  margin: 30px;
+  margin-top: 30px;
+  margin-right: 30px;
+  margin-left: 30px;
+  margin-bottom: 6px;
   border: 2px solid black; 
   border-radius: 5px; 
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   --background: #f0f0ed8a;
+  color: black;
 }
 
 .forgotpass-item {
-  margin-top: 10px; 
+  margin-left:39px ;
 }
 
 .forgotpass {
   color: rgb(7, 28, 105);
   font-weight: bold;
+  font-size: 13px;
 }
 
 .buttons {
   padding: 2%;
   display: flex;
   justify-content: space-around;
-  width: 60%;
-  margin-top: 20px; 
+  width: 85%;
+  margin-top: 70px; 
 }
 
 .signin, .signup {
