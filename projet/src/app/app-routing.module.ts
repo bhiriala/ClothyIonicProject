@@ -22,7 +22,8 @@ const routes: Routes = [
   {
     path: 'tabs',
     loadChildren: () => import('./pages/tabs/tabs.module').then( m => m.TabsPageModule)
-  },  {
+  },
+  {
     path: 'signup',
     loadChildren: () => import('./pages/signup/signup.module').then( m => m.SignupPageModule)
   },
@@ -33,6 +34,10 @@ const routes: Routes = [
   {
     path: 'profil',
     loadChildren: () => import('./pages/profil/profil.module').then( m => m.ProfilPageModule)
+  },
+  {
+    path: 'edit-article',
+    loadChildren: () => import('./pages/edit-article/edit-article.module').then( m => m.EditArticlePageModule)
   },
 
 
