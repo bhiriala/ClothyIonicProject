@@ -1,22 +1,33 @@
 <ion-content [fullscreen]="true" class="content-container">
+
+  <div class="background-image"></div>
+
   <div class="logincontent">
-      <p class="login-section"><i>Login</i></p>   
-      <p class="text-section">Buy and sell pre-loved clothing,
-        contributing to a greener, more eco-friendly world .</p>
-      <ion-list class="color inputs">
-        <ion-item class="password-item">    
-          <ion-label position="floating"><ion-icon name="lock-open-outline"></ion-icon>Password</ion-label>
-          <ion-input type="password"></ion-input>
-        </ion-item>
-        <ion-item class="email-item">
-          <ion-label position="floating"><ion-icon name="mail-outline"></ion-icon> Email</ion-label>
-          <ion-input type="email" placeholder="email@domain.com" [(ngModel)]="email"></ion-input>
-        </ion-item>
-        <a class="forgotpass">Forgot your password ?</a>
-      </ion-list>
+    <p class="login-section">Login</p>   
+    <p class="text-section">Buy and sell pre-loved clothing, contributing to a greener, more eco-friendly world.</p>
+
+    <ion-list class="inputs">
+      <ion-item class="email-item">
+        <ion-label position="floating"><ion-icon name="mail-outline"></ion-icon> Email</ion-label>
+        <ion-input type="email" placeholder="email@domain.com" [(ngModel)]="email"></ion-input>
+      </ion-item>
+    
+      <ion-item class="password-item">    
+        <ion-label position="floating"><ion-icon name="lock-open-outline"></ion-icon>Password</ion-label>
+        <ion-input type="password"></ion-input>
+      </ion-item>
+
+      <div class="forgotpass-item">
+        <a class="forgotpass">Forgot your password?</a>
+      </div>
+
+    </ion-list>
+
     <div class="buttons">
-      <ion-button (click)="signIn()" shape="round" color="warning" class="signin">Sign in</ion-button>
-      <ion-button [routerLink]="['/signup']"  shape="round" color="light" class="signup">Sign up</ion-button>
+      <ion-button (click)="signIn()" color="warning" class="signin">Sign in</ion-button>
+      <ion-button [routerLink]="['/signup']" color="dark" class="signup">Sign up</ion-button>
     </div>
+
   </div>
+
 </ion-content>
