@@ -13,6 +13,5 @@ export class ClothesArticleComponent {
   toggleFavorite() {
     this.isFavorite = !this.isFavorite;
   }
-
   constructor() {}
 }

@@ -2,22 +2,21 @@
   <div class="logincontent">
       <p class="login-section"><i>Login</i></p>   
       <p class="text-section">Buy and sell pre-loved clothing,
-        contributing to a greener, moreeco-friendly world .</p>
+        contributing to a greener, more eco-friendly world .</p>
       <ion-list class="color inputs">
         <ion-item class="password-item">    
           <ion-label position="floating"><ion-icon name="lock-open-outline"></ion-icon>Password</ion-label>
-          <ion-input type="password" ></ion-input>
+          <ion-input type="password"></ion-input>
         </ion-item>
         <ion-item class="email-item">
           <ion-label position="floating"><ion-icon name="mail-outline"></ion-icon> Email</ion-label>
-          <ion-input type="email" placeholder="email@domain.com"></ion-input>
+          <ion-input type="email" placeholder="email@domain.com" [(ngModel)]="email"></ion-input>
         </ion-item>
         <a class="forgotpass">Forgot your password ?</a>
       </ion-list>
     <div class="buttons">
-      <ion-button shape="round" color="warning" class="signin">Sign in</ion-button>
-      <ion-button shape="round" color="light" class="signup">Sign up</ion-button>
+      <ion-button (click)="signIn()" shape="round" color="warning" class="signin">Sign in</ion-button>
+      <ion-button [routerLink]="['/signup']"  shape="round" color="light" class="signup">Sign up</ion-button>
     </div>
-    
   </div>
 </ion-content>
