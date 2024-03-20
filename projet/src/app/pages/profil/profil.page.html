@@ -1,28 +1,49 @@
 <ion-header [translucent]="true">
-  <ion-toolbar >
-    <ion-icon class="head" slot="start" name="shirt-outline"></ion-icon>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/tabs/home-page"></ion-back-button>
+    </ion-buttons>
+    <ion-icon name="shirt-outline" slot="start" class="head"></ion-icon>
     <ion-title>Reclothy</ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-buttons class="back" slot="start">
-  <ion-back-button default-href="/tabs/home-page"></ion-back-button>
-</ion-buttons>
+<ion-content [fullscreen]="true">
+  <!-- Cover picture -->
+  <div class="cover-container">
+    <img [src]="covpic" class="couverture">
+  </div>
 
-<ion-content [fullscreen]="true" class="profilcontent">
-  <img [src]="covpic" class="couverture">
+  <!-- Profile picture -->
   <div class="profile-picture-container">
     <img [src]="profilpic" alt="Profile Picture" class="profile-picture">
   </div>
-  <div style="display: flex;">
-    <p style="margin-left: 8%;"><ion-icon name="call-outline" style="margin-right: 10px;"></ion-icon>25763502</p>
-    <p style="margin-left: 20%;"><ion-icon name="mail-outline" style="margin-right: 10px;"></ion-icon>bhiriala577gmail.com</p>
+
+  <!-- Personal information -->
+  <div class="personal-info">
+    <ion-item lines="none">
+      <ion-icon name="call-outline" class="info-icon" slot="start"></ion-icon>
+      <ion-label>25763502</ion-label>
+    </ion-item>
+    <ion-item lines="none">
+      <ion-icon name="mail-outline" class="info-icon" slot="start"></ion-icon>
+      <ion-label>bhiriala577mail.com</ion-label>
+    </ion-item>
   </div>
-  <ion-button class="boutton" fill="outline" [routerLink]="['/edit-profile']">Edit Profil<ion-icon name="chevron-forward-outline" style="margin-left: 10px;"></ion-icon></ion-button>
-  <p class="text"><i>My Articles</i></p>
-  <ion-row class="ion-justify-content-center ">
+  
+  <ion-button expand="block" fill="outline" [routerLink]="['/edit-profile']" class="edit-button">
+    Edit Profile
+    <ion-icon name="chevron-forward-outline" slot="end"></ion-icon>
+  </ion-button>
+
+
+  <!-- My Articles -->
+  <p class="text ion-text-center">My Articles</p>
+
+  <ion-row class="ion-justify-content-center">
     <ng-container *ngFor="let article of articles">
-      <app-myarticles [article]="article" ></app-myarticles>
+      <app-myarticles [article]="article"></app-myarticles>
     </ng-container>
   </ion-row>
-  </ion-content>
+</ion-content>
+
