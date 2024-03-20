@@ -1,0 +1,14 @@
+.clothes-card {
+    width: calc(100% - 20px); 
+    margin: 10px;
+    border-radius: 10px;
+}
+  
+.clothes-card ion-img {
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+}
+
+.clothes-card ion-card-content {
+  padding: 10px;
+}

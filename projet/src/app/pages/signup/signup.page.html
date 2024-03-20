@@ -1,36 +1,29 @@
 <ion-content [fullscreen]="true" class="content-container">
-  <div class="signupcontent ">
-    <div class="signup-section">
-      <p class="textsignup"><i>Sign-Up</i></p>
-    </div>
-
-    <div class="inputs">
-      <ion-list class="color">
+  <div class="signupcontent">  
+      <p class="signup-section"><i>Sign-Up</i></p>
+      <ion-list class="color inputs">
         <ion-item class="username-item">
           <ion-label position="floating"><ion-icon name="person-outline"></ion-icon>Username</ion-label>
-          <ion-input type="text" placeholder="Enter username"></ion-input>
+          <ion-input type="text" placeholder="Enter username" [(ngModel)]="username"></ion-input>
         </ion-item>
       
       <ion-item class="phone-item">
         <ion-label position="floating"><ion-icon name="call-outline"></ion-icon>Phone</ion-label>
-        <ion-input type="tel" placeholder="Enter phone"></ion-input>
+        <ion-input type="tel" placeholder="Enter phone" [(ngModel)]="phone"></ion-input>
       </ion-item>
     
         <ion-item class="email-item">
           <ion-label position="floating"><ion-icon name="mail-outline"></ion-icon> Email</ion-label>
-          <ion-input type="email" placeholder="email@domain.com"></ion-input>
+          <ion-input type="email" placeholder="email@domain.com" [(ngModel)]="email"></ion-input>
         </ion-item>
 
       <ion-item class="password-item">    
         <ion-label position="floating"><ion-icon name="lock-open-outline"></ion-icon>Password</ion-label>
-        <ion-input type="password" placeholder="Enter password"></ion-input>
+        <ion-input type="password" placeholder="Enter password" [(ngModel)]="password"></ion-input>
       </ion-item>
     </ion-list>
-    </div>
-
     <div class="button">
-      <ion-button shape="round" color="light" class="signup">Sign up</ion-button>
+      <ion-button (click)="signUp()" shape="round" color="light" class="signup">Sign up</ion-button>
     </div>
-    
   </div>
 </ion-content>

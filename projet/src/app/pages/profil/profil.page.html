@@ -1,0 +1,28 @@
+<ion-header [translucent]="true">
+  <ion-toolbar >
+    <ion-icon class="head" slot="start" name="shirt-outline"></ion-icon>
+    <ion-title>Reclothy</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-buttons class="back" slot="start">
+  <ion-back-button default-href="/tabs/home-page"></ion-back-button>
+</ion-buttons>
+
+<ion-content [fullscreen]="true" class="profilcontent">
+  <img [src]="covpic" class="couverture">
+  <div class="profile-picture-container">
+    <img [src]="profilpic" alt="Profile Picture" class="profile-picture">
+  </div>
+  <div style="display: flex;">
+    <p style="margin-left: 8%;"><ion-icon name="call-outline" style="margin-right: 10px;"></ion-icon>25763502</p>
+    <p style="margin-left: 20%;"><ion-icon name="mail-outline" style="margin-right: 10px;"></ion-icon>bhiriala577gmail.com</p>
+  </div>
+  <ion-button class="boutton" fill="outline" [routerLink]="['/edit-profile']">Edit Profil<ion-icon name="chevron-forward-outline" style="margin-left: 10px;"></ion-icon></ion-button>
+  <p class="text"><i>My Articles</i></p>
+  <ion-row class="ion-justify-content-center ">
+    <ng-container *ngFor="let article of articles">
+      <app-myarticles [article]="article" ></app-myarticles>
+    </ng-container>
+  </ion-row>
+  </ion-content>

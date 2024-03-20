@@ -15,17 +15,19 @@
     background-size: cover;
     background-position: center;
     height: 100%;
-    transform: translate(25px,2px);
+    position: fixed;
+    width: 100%;
   }
   .signup-section {
-    margin-top: 20px;
+    margin-top: 145px;
     margin-left: 14px;
+    margin-right: 10px;
     font-size: 44px;
     color: rgb(55, 52, 52);
-  
   }
   .inputs{
-    margin-bottom: 70px;
+    margin-bottom: 50px;
+    margin-right: 20px;
   }
   .color{
     margin-left: 50px;
@@ -64,6 +66,7 @@ margin-bottom: 14px;
   margin-left: 24px;
   margin-bottom: auto;
   width: 120px;
+  margin-right: 55px;
 }
 .password-item ion-icon {
   margin-right: 8px; 
