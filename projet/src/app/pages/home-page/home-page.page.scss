@@ -1,5 +1,6 @@
 ion-toolbar {
   padding-left: 30px;
+  padding-right: 30px;
 }
 
 .image-container {
@@ -10,8 +11,8 @@ ion-toolbar {
 }
 
 .cover {
-  max-width: 100%; /* Optional: Set the maximum width of the image */
-  max-height: 100%; /* Optional: Set the maximum height of the image */
+  max-width: 100%; 
+  max-height: 100%; 
 }
 
 .categories {
@@ -22,9 +23,8 @@ ion-toolbar {
   }
 
   .button{
-    margin: 5px; /* Adjust as needed */
+    margin: 5px; 
     
   }
 }
 
-  

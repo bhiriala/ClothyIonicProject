@@ -1,4 +1,5 @@
-<ion-card class="clothes-card" [routerLink]="'/clothes-details/' + article.id">
+<ion-card class="clothes-card" [routerLink]="'/clothes-details/' + article.id" >
+  <!-- <div  -->
   <ion-img [src]="article.imageUrl"></ion-img>
   <ion-card-content>
     <ion-card-title>{{ article.name }}</ion-card-title>
@@ -7,4 +8,5 @@
       <ion-icon name="create-outline" class="icon"></ion-icon>
     </ion-button>
   </ion-card-content>
+  <!-- </div> -->
 </ion-card>

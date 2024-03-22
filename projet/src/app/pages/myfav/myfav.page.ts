@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 
 @Component({
-  selector: 'app-home-page',
-  templateUrl: './home-page.page.html',
-  styleUrls: ['./home-page.page.scss'],
+  selector: 'app-myfav',
+  templateUrl: './myfav.page.html',
+  styleUrls: ['./myfav.page.scss'],
 })
-export class HomePagePage implements OnInit {
+export class MyfavPage implements OnInit {
 
   articles = [
     { id: 1, name: 'Blue Shirt', price: '$19.99', imageUrl: 'https://via.placeholder.com/300x300.png?text=Blue+Shirt', isFavorite: false },

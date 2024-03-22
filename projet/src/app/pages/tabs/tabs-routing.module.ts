@@ -15,7 +15,11 @@ const routes: Routes = [
       {
         path: 'profil',
         loadChildren: () => import('../profil/profil.module').then( m => m.ProfilPageModule)
-        }
+        },
+      {
+        path: 'myfav',
+        loadChildren: () => import('../myfav/myfav.module').then(m => m.MyfavPageModule)
+      }
       ]
   }
 ];

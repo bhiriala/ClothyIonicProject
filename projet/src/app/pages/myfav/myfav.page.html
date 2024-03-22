@@ -1,0 +1,15 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>My Favorites</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+
+  <ion-row class="ion-justify-content-center ">
+    <ng-container *ngFor="let article of articles">
+      <app-clothes-article [article]="article" ></app-clothes-article>
+    </ng-container>
+  </ion-row>
+
+</ion-content>

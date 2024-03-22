@@ -4,9 +4,9 @@ import { FormsModule } from '@angular/forms';
 
 import { IonicModule } from '@ionic/angular';
 
-import { HomePagePageRoutingModule } from './home-page-routing.module';
+import { MyfavPageRoutingModule } from './myfav-routing.module';
 
-import { HomePagePage } from './home-page.page';
+import { MyfavPage } from './myfav.page';
 
 import { ClothesArticleModule } from '../../components/clothes-article/clothes-article.module';
 
@@ -15,9 +15,9 @@ import { ClothesArticleModule } from '../../components/clothes-article/clothes-a
     CommonModule,
     FormsModule,
     IonicModule,
-    HomePagePageRoutingModule,
+    MyfavPageRoutingModule,
     ClothesArticleModule
   ],
-  declarations: [HomePagePage]
+  declarations: [MyfavPage]
 })
-export class HomePagePageModule {}
+export class MyfavPageModule {}

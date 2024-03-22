@@ -39,6 +39,10 @@ const routes: Routes = [
     path: 'edit-article',
     loadChildren: () => import('./pages/edit-article/edit-article.module').then( m => m.EditArticlePageModule)
   },
+  {
+    path: 'myfav',
+    loadChildren: () => import('./pages/myfav/myfav.module').then( m => m.MyfavPageModule)
+  },
 
 
 
