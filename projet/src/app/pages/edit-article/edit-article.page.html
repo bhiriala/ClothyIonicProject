@@ -1,13 +1,26 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
-    <ion-title>edit-article</ion-title>
+    <ion-buttons slot="start">
+      <ion-button (click)="dismiss()">
+        <ion-icon slot="icon-only" name="close"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-title>Edit Article</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">edit-article</ion-title>
-    </ion-toolbar>
-  </ion-header>
+  <ion-card class="inputs">
+    <ion-list >
+      <ion-item class="name">
+        <ion-label position="floating" >Name</ion-label>
+        <ion-input type="text" [(ngModel)]="editedArticle.name"></ion-input>
+      </ion-item>
+      <ion-item class="price">
+        <ion-label position="floating">Price</ion-label>
+        <ion-input type="text" [(ngModel)]="editedArticle.price"></ion-input>
+      </ion-item>
+    </ion-list>
+  </ion-card>
+  <ion-button expand="block" (click)="saveChanges()" class="save">Save Changes</ion-button>
 </ion-content>

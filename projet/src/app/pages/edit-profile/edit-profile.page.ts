@@ -25,9 +25,9 @@ export class EditProfilePage {
   }
 
   constructor(private toastController: ToastController) {
-    this.username = "SarraSou";
+    this.username = "Markita";
     this.phone = "12345678";
-    this.email = "sarra@example.com";
+    this.email = "markita@kehfr.com";
     this.password = "password123";
   }
 
