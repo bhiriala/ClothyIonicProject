@@ -1,13 +1,20 @@
 <ion-card class="clothes-card">
   <ion-img [src]="article.imageUrl"></ion-img>
   <ion-card-content>
-    <ion-card-title>{{ article.name }}</ion-card-title>
-    <ion-card-subtitle>{{ article.price }}</ion-card-subtitle>
+
+    <ion-row>
+      <ion-col>
+        <ion-card-title>{{ article.name }}</ion-card-title>
+        <ion-card-subtitle>{{ article.price }}</ion-card-subtitle>
+      </ion-col>
+      <ion-col class="ion-text-right">
+        <ion-button fill="clear" [class.favorite]="isFavorite" (click)="toggleFavorite()">
+          <ion-icon name="heart" class="heart-icon"></ion-icon>
+        </ion-button>
+      </ion-col>
+    </ion-row>
+
     <ion-button expand="block" class="add-button">Add to cart</ion-button>
-    
-    <ion-button class="favorite-button" (click)="toggleFavorite()">
-      <ion-icon name="heart" [style.color]="isFavorite ? 'danger' : 'light'"></ion-icon>
-    </ion-button>
     
   </ion-card-content>
 </ion-card>

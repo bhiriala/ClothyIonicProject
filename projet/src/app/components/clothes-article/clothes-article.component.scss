@@ -14,12 +14,14 @@
   padding: 10px;
 }
 
-.favorite-button {
-  position: absolute;
-  bottom: 55px;
-  right: 10px;
+
+.favorite {
+  color: var(--ion-color-danger);
 }
 
+// .heart-icon{
+//   color: rgb(143, 86, 86);
+// }
 
 .add {
   --background: #b0efd0;
