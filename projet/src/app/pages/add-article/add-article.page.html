@@ -1,0 +1,25 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>Add Article</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content  [fullscreen]="true">
+  <div class="background-image"></div>
+  <div class="addarticlecontent">
+  <ion-item class="name">
+    <ion-label position="floating">Name</ion-label>
+    <ion-input [(ngModel)]="name"></ion-input>
+  </ion-item>
+  <ion-item class="price">
+    <ion-label position="floating">Price</ion-label>
+    <ion-input [(ngModel)]="price"></ion-input>
+  </ion-item>
+  
+  <ion-item class="img">
+  <ion-label position="stacked" class="labelimg">select photo</ion-label>
+  <input class="selectpho" type="file" accept="image/*" (change)="onFileSelected($event)" />
+</ion-item>
+<ion-button class="button" (click)="add()">Add article</ion-button>
+</div>
+</ion-content>
