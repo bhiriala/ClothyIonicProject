@@ -19,6 +19,10 @@ const routes: Routes = [
       {
         path: 'myfav',
         loadChildren: () => import('../myfav/myfav.module').then(m => m.MyfavPageModule)
+      },
+      {
+        path: 'add-article',
+        loadChildren: () => import('../add-article/add-article.module').then(m => m.AddArticlePageModule)
       }
       ]
   }

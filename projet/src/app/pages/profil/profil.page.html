@@ -1,10 +1,13 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
     <ion-buttons slot="start">
-      <ion-back-button defaultHref="/tabs/home-page"></ion-back-button>
+      <ion-back-button style="color: white;margin-right: 9px;" defaultHref="/tabs/home-page"></ion-back-button>
     </ion-buttons>
     <ion-icon name="shirt-outline" slot="start" class="head"></ion-icon>
     <ion-title>Reclothy</ion-title>
+    <ion-button fill="clear" color="favorite" class="logout-button" [routerLink]="['/home']">
+      <ion-icon style="color: white;" name="log-out-outline"></ion-icon>
+    </ion-button>
   </ion-toolbar>
 </ion-header>
 

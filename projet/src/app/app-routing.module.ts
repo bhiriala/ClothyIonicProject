@@ -42,7 +42,11 @@ const routes: Routes = [
   {
     path: 'myfav',
     loadChildren: () => import('./pages/myfav/myfav.module').then( m => m.MyfavPageModule)
+  },  {
+    path: 'add-article',
+    loadChildren: () => import('./pages/add-article/add-article.module').then( m => m.AddArticlePageModule)
   },
+
 
 
 
