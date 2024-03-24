@@ -14,18 +14,19 @@
   </div>
 
     <ion-item class="input-item">
-      <ion-label position="floating">Username</ion-label>
-      <ion-input [value]="inputModel" (ionInput)="onInput($event)" [(ngModel)]="username" #ionInputEl></ion-input>
+      <!-- <ion-label position="floating">Username</ion-label> -->
+      <ion-input label="Username"  [value]="inputModel" (ionInput)="onInput($event)" [(ngModel)]="username" #ionInputEl></ion-input>
     </ion-item>
     
     <ion-item class="input-item">
-      <ion-label position="floating">Phone</ion-label>
-      <ion-input type="tel" inputmode="numeric" pattern="[0-9]{8}" [(ngModel)]="phone"></ion-input>
+      <!-- <ion-label position="floating">Phone</ion-label> -->
+      <ion-input label="Phone" type="tel" inputmode="numeric" pattern="[0-9]{8}" [(ngModel)]="phone"></ion-input>
     </ion-item>
     
     <ion-item class="input-item">
-      <ion-label position="floating">Email</ion-label>
-      <ion-input   type="email"
+      <!-- <ion-label position="floating">Email</ion-label> -->
+      <ion-input  label="Email" 
+      type="email"
       labelPlacement="floating"
       helperText="Enter a valid email"
       errorText="Invalid email"
@@ -34,8 +35,8 @@
     </ion-item>
 
     <ion-item class="input-item">
-      <ion-label position="floating">Password</ion-label>
-      <ion-input type="{{ showPassword ? 'text' : 'password' }}" placeholder="***********" [(ngModel)]="password"></ion-input>
+      <!-- <ion-label position="floating">Password</ion-label> -->
+      <ion-input label="Password" type="{{ showPassword ? 'text' : 'password' }}" placeholder="***********" [(ngModel)]="password"></ion-input>
       <ion-icon slot="start" name="lock-closed"></ion-icon>
       <ion-button fill="clear" slot="end" (click)="togglePasswordVisibility()" [attr.aria-label]="'Show/hide ' + (showPassword ? 'password' : 'text')">
         <ion-icon slot="icon-only" [name]="showPassword ? 'eye-off' : 'eye'"></ion-icon>

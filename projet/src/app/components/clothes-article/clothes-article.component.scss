@@ -16,14 +16,17 @@
 
 
 .favorite {
-  color: var(--ion-color-danger);
+  ion-icon {
+    color: red;
+  }
 }
 
-// .heart-icon{
-//   color: rgb(143, 86, 86);
-// }
+ion-icon{
+  color: rgb(234, 177, 177);
+}
 
-.add {
+
+.add-button {
   --background: #b0efd0;
   --background-hover: #9ce0be;
   --background-activated: #88f4be;

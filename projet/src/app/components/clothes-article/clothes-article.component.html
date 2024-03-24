@@ -1,20 +1,22 @@
 <ion-card class="clothes-card">
-  <ion-img [src]="article.imageUrl"></ion-img>
+  <ion-img *ngIf="article.imageUrl" loading="lazy" alt="{{ article.name }}" [src]="article.imageUrl"></ion-img>
   <ion-card-content>
-
+<!-- loading="lazy" to optimize image loading  -->
+<!-- *ngIf="article.imageUrl" to handle error -->
     <ion-row>
       <ion-col>
         <ion-card-title>{{ article.name }}</ion-card-title>
-        <ion-card-subtitle>{{ article.price }}</ion-card-subtitle>
+        <ion-card-subtitle> ${{ article.price }} </ion-card-subtitle>
       </ion-col>
+
       <ion-col class="ion-text-right">
-        <ion-button fill="clear" [class.favorite]="isFavorite" (click)="toggleFavorite()">
-          <ion-icon name="heart" class="heart-icon"></ion-icon>
+        <ion-button aria-label="Add to favorites" fill="clear" (click)="toggleFavorite(article)" [class.favorite]="isFavorite">
+          <ion-icon name="heart" slot="icon-only" [ngClass]="{ 'favorite': isFavorite }"></ion-icon>
         </ion-button>
       </ion-col>
     </ion-row>
 
-    <ion-button expand="block" class="add-button">Add to cart</ion-button>
+    <ion-button (click)="addCart(article)" expand="block" class="add-button">Add to cart</ion-button>
     
   </ion-card-content>
 </ion-card>
