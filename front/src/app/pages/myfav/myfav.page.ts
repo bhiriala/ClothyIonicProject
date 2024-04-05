@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { FavoriteService } from 'src/app/services/favorite.service';
 
 @Component({
   selector: 'app-myfav',
@@ -6,17 +7,27 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./myfav.page.scss'],
 })
 export class MyfavPage implements OnInit {
+  favItems!: any[];
 
-  articles = [
-    { id: 1, name: 'Blue Shirt', price: '$19.99', imageUrl: 'https://via.placeholder.com/300x300.png?text=Blue+Shirt', isFavorite: false },
-    { id: 2, name: 'White Dress', price: '$29.99', imageUrl: 'https://via.placeholder.com/300x300.png?text=White+Dress', isFavorite: false},
-    { id: 3, name: 'Black Tshirt', price: '$10.99', imageUrl: 'https://via.placeholder.com/300x300.png?text=Black+Tshirt', isFavorite: false},
-    { id: 4, name: 'Pink Shoes', price: '$39.99', imageUrl: 'https://via.placeholder.com/300x300.png?text=Pink+Shoes', isFavorite: false},
-  ];
-
-  constructor() { }
+  constructor(public favService: FavoriteService) {}
 
   ngOnInit() {
+    this.favItems = this.favService.getFavItems();
+    this.calculateTotal();
+  }
+
+  calculateTotal(): number {
+    let total : number= 0;
+    for (let item of this.favItems) {
+      total += parseFloat(item.price);
+    }
+    return parseFloat(total.toFixed(2));
+  }
+
+  removeItem(item: any): void {
+    this.favService.removeFromFav(item);
+    this.favItems = this.favService.getFavItems(); // Update cartItems after removal
+    this.calculateTotal()// Recalculate total after removal
   }
 
 }

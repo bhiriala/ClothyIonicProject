@@ -8,7 +8,7 @@ const routes: Routes = [
   },
   {
     path: '',
-    redirectTo: 'home',
+    redirectTo: '/tabs/home-page',
     pathMatch: 'full'
   },
   {
@@ -42,10 +42,16 @@ const routes: Routes = [
   {
     path: 'myfav',
     loadChildren: () => import('./pages/myfav/myfav.module').then( m => m.MyfavPageModule)
-  },  {
+  },
+  {
     path: 'add-article',
     loadChildren: () => import('./pages/add-article/add-article.module').then( m => m.AddArticlePageModule)
   },
+  {
+    path: 'cart',
+    loadChildren: () => import('./pages/cart/cart.module').then( m => m.CartPageModule)
+  },
+
 
 
 

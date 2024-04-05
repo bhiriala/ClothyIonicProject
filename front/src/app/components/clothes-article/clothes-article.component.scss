@@ -14,14 +14,19 @@
   padding: 10px;
 }
 
-.favorite-button {
-  position: absolute;
-  bottom: 55px;
-  right: 10px;
+
+.favorite {
+  ion-icon {
+    color: red;
+  }
+}
+
+ion-icon{
+  color: rgb(234, 177, 177);
 }
 
 
-.add {
+.add-button {
   --background: #b0efd0;
   --background-hover: #9ce0be;
   --background-activated: #88f4be;

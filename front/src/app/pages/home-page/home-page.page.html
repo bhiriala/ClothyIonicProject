@@ -2,7 +2,9 @@
   <ion-toolbar>
     <ion-icon slot="start" name="shirt-outline" ></ion-icon>
     <ion-title>Reclothy</ion-title>
-    <ion-icon name="cart-outline" slot="end" class="panier"></ion-icon>
+    <ion-button fill="clear" slot="end" [routerLink]="['/cart']" >
+      <ion-icon slot="icon-only" style="color: black;" name="cart-outline"></ion-icon>
+    </ion-button>
   </ion-toolbar>
 </ion-header>
 
@@ -11,14 +13,14 @@
   <ion-searchbar placeholder="Search for clothes..." debounce="500"></ion-searchbar>
 
   <div class="image-container">
-    <img src="../../../assets/cover.png" alt="Image Description" class="cover">
+    <img src="../../../assets/cover.png" alt="Cover Image" class="cover">
   </div>
     
 
   <ion-card>
     <ion-card-content class="categories">
       <h1>Categories</h1>
-      <div class="button-container">
+      <div class="category-buttons-container">
         <ion-button class="button" color="dark">
           <ion-icon slot="start" name="woman"></ion-icon>
           Women
