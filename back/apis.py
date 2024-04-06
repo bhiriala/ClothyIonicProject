@@ -88,25 +88,39 @@ def signup():
     return jsonify({"msg": "Profil mis à jour avec succès"}), 200
 
 
+@app.route("/user_info", methods=["GET"])
+@jwt_required()
+def user_info():
+    current_user_password = get_jwt_identity()
+    user_info_cursor = users.find({"password": current_user_password})
+    user_info = list(user_info_cursor)
+    if user_info:
+        return dumps(user_info), 200
+    else:
+        return jsonify({"msg": "User not found"}), 404
+
+
 @app.route("/addArticle", methods=["POST"])
 @jwt_required()
 def addArticle():
     price = request.json["price"]
     name = request.json["name"]
     image = request.json["image"]
-    
+
     user_password = get_jwt_identity()
     user = users.find_one({ "password" : user_password })
     
-    collection = user.get('my_articles', [])
-    new_article = {"price": price, "name": name, "image": image}
-    collection.append(new_article)
-    users.update_one({"password": user_password}, {"$set": {"my_articles": collection}})    
-    
-    articles.insert_one(new_article)
+    if user:
+        collection = user.get('my_articles', [])
+        new_article = {"price": price, "name": name, "image": image}
+        collection.append(new_article)
+        users.update_one({"password": user_password}, {"$set": {"my_articles": collection}})    
+        
+        articles.insert_one(new_article)
 
-    return jsonify({"msg": "L'article a bien été ajouté"}), 200
-
+        return jsonify({"msg": "L'article a bien été ajouté"}), 200
+    else:
+        return jsonify({"error": "User not found"}), 404
     
     
 if __name__ == "__main__":
