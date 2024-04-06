@@ -16,19 +16,19 @@
   </div>
 
   <div class="profile-picture-container">
-    <img [src]="profilpic" alt="Profile Picture" class="profile-picture">
-    <ion-label class="name">Markita</ion-label>
+    <img [src]="image" alt="Profile Picture" class="profile-picture">
+    <ion-label class="name">{{username}}</ion-label>
   </div>
 
   <div class="personal-info">
     <ion-item lines="none">
       <ion-icon name="call-outline" class="info-icon" slot="start"></ion-icon>
-      <ion-label>12345678</ion-label>
+      <ion-label> {{phone}} </ion-label>
     </ion-item>
 
     <ion-item lines="none">
       <ion-icon name="mail-outline" class="info-icon" slot="start"></ion-icon>
-      <ion-label>markitakehfr.com</ion-label>
+      <ion-label> {{email}} </ion-label>
     </ion-item>
   </div>
   
@@ -40,7 +40,7 @@
   <p class="text ">My Articles :</p>
 
   <ion-row class="ion-justify-content-center">
-    <ng-container *ngFor="let article of articles">
+    <ng-container *ngFor="let article of myarticles">
       <app-myarticles [article]="article"></app-myarticles>
     </ng-container>
   </ion-row>

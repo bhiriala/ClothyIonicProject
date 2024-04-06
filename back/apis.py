@@ -88,5 +88,17 @@ def signup():
     return jsonify({"msg": "Profil mis à jour avec succès"}), 200
 
 
+@app.route("/user_info", methods=["GET"])
+@jwt_required()
+def user_info():
+    current_user_password = get_jwt_identity()
+    user_info_cursor = users.find({"password": current_user_password})
+    user_info = list(user_info_cursor)
+    if user_info:
+        return dumps(user_info), 200
+    else:
+        return jsonify({"msg": "User not found"}), 404
+
+
 if __name__ == "__main__":
     app.run(debug=True)
