@@ -1,6 +1,5 @@
 from flask import Flask, request, jsonify, redirect
 from flask_cors import CORS, cross_origin
-import cv2
 import base64
 import numpy as np
 from flask_jwt_extended import create_access_token
@@ -17,6 +16,7 @@ CORS(app)
 client = MongoClient("localhost", 27017)
 db = client.reclothy
 users = db.users
+articles = db.articles
 app.config["JWT_SECRET_KEY"] = "skjdfbnbsrkjgb14541616"
 jwt = JWTManager(app)
 
@@ -88,5 +88,28 @@ def signup():
     return jsonify({"msg": "Profil mis à jour avec succès"}), 200
 
 
+@app.route("/addArticle", methods=["POST"])
+@jwt_required
+def addArticle():
+    price = request.json["price"]
+    name = request.json["name"]
+    image = request.json["image"]
+    
+    user_password = get_jwt_identity()
+    user = users.find_one({ "password" : user_password })
+    
+    if user:
+        collection = user.get('my_articles', [])
+        new_article = {"price": price, "name": name, "image": image}
+        collection.append(new_article)
+        users.update_one({"password": user_password}, {"$set": {"my_articles": collection}})    
+        
+        articles.insert_one(new_article)
+
+        return jsonify({"msg": "L'article a bien été ajouté"}), 200
+    else:
+        return jsonify({"error": "User not found"}), 404
+    
+    
 if __name__ == "__main__":
     app.run(debug=True)
