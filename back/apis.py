@@ -101,7 +101,7 @@ def user_info():
 
 
 @app.route("/addArticle", methods=["POST"])
-@jwt_required
+@jwt_required()
 def addArticle():
     price = request.json["price"]
     name = request.json["name"]
