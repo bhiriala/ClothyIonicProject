@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AlertController } from '@ionic/angular';
+import axios, { AxiosError } from 'axios';
 
 @Component({
   selector: 'app-signup',
@@ -12,39 +13,87 @@ export class SignupPage implements OnInit {
   phone: string = '';
   email: string = '';
   password: string = '';
+  image: string = '';
 
   constructor(
     private router: Router,
     private alertController: AlertController
   ) { }
 
-  ngOnInit() {
-  }
+  ngOnInit() {}
 
   async signUp() {
-    if (!this.isValidUsername(this.username)) {
-      await this.presentAlert('Invalid Username', 'Please enter a valid username (letters only).');
-      return;
-    }
+    try {
+      if (!this.username) {
+        await this.presentAlert('username Required', 'Please enter your username.');
+        return;
+      }
+    
+      if (!this.password) {
+        await this.presentAlert('password Required', 'Please enter your password.');
+        return;
+      }
+      if (!this.image) {
+        await this.presentAlert('Image Required', 'Please select an image.');
+        return;
+      }
+      const response = await axios.post('http://localhost:5000/signup', { 
+        image: this.image,
+        username: this.username,
+        email: this.email,
+        phone: this.phone,
+        password: this.password 
+      });
 
-    if (!this.isValidPhone(this.phone)) {
-      await this.presentAlert('Invalid Phone', 'Please enter a valid phone number (8 digits only).');
-      return;
+      if (response.status === 200) {
+        alert("Account created successfully");
+        console.log("Account created successfully");
+        this.router.navigateByUrl('/tabs/home-page');
+      } else {
+        alert("Creation failed");
+      }
+    } catch (error) {
+      if (axios.isAxiosError(error)) {
+        const axiosError = error as AxiosError;
+        switch (axiosError.response?.status) {
+          case 401:
+            alert("Invalid email format");
+            break;
+          case 402:
+            alert("Email already used by another user");
+            break;
+          case 403:
+            alert("Phone number must contain only digits");
+            break;
+          case 404:
+            alert("Password already used by another user");
+            break;
+            case 405:
+              alert("username already used by another user");
+              break;
+          default:
+            console.error('Error:', error);
+            alert("An error occurred during signup");
+        }
+      } else {
+        console.error('Error:', error);
+        alert("An error occurred during signup");
+      }
     }
-
-    if (!this.isValidEmail(this.email)) {
-      await this.presentAlert('Invalid Email', 'Please enter a valid email address.');
-      return;
-    }
-
-    // Redirect to home page if all inputs are valid
-    this.router.navigateByUrl('/tabs/home-page');
-    this.username="";
-    this.phone="";
-    this.email="";
-    this.password="";
   }
 
+  convertToBase64(event: any) {
+    const reader = new FileReader();
+    reader.readAsDataURL(event.target.files[0]);
+    reader.onload = () => {
+      this.image = reader.result as string;
+      console.log(this.image);
+    };
+    reader.onerror = error => {
+      console.log("Error: ", error);
+    };
+  }
+  
   async presentAlert(header: string, message: string) {
     const alert = await this.alertController.create({
       header: header,
@@ -53,20 +102,5 @@ export class SignupPage implements OnInit {
     });
 
     await alert.present();
-  }
-
-  isValidUsername(username: string): boolean {
-    const usernameRegex = /^[a-zA-Z]+$/;
-    return usernameRegex.test(username);
-  }
-
-  isValidPhone(phone: string): boolean {
-    const phoneRegex = /^\d{8}$/;
-    return phoneRegex.test(phone);
-  }
-
-  isValidEmail(email: string): boolean {
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    return emailRegex.test(email);
   }
 }

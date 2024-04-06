@@ -7,6 +7,7 @@ from flask_jwt_extended import create_access_token
 from flask_jwt_extended import get_jwt_identity
 from flask_jwt_extended import jwt_required
 from flask_jwt_extended import JWTManager
+import re
 from bson.json_util import dumps
 from datetime import timedelta
 from pymongo import MongoClient
@@ -33,6 +34,58 @@ def login():
 
     else:
         return jsonify({"msg": "ce compte n'existe pas"}), 401
+
+
+@app.route("/signup", methods=["POST"])
+def signup():
+    email = request.json["email"]
+    username = request.json["username"]
+    phone = request.json["phone"]
+    password = request.json["password"]
+    image = request.json["image"]
+    favorite_articles = []
+    my_articles = []
+    cart = []
+
+    if not re.match(r"[^@]+@[^@]+\.[^@]+", email):
+        return jsonify({"msg": "Format d'email invalide"}), 401
+
+    existing_username = users.find_one({"username": username})
+    if existing_username is not None:
+        return (
+            jsonify({"msg": "existing_username déjà utilisé par un autre utilisateur"}),
+            405,
+        )
+
+    existing_email = users.find_one({"email": email})
+    if existing_email is not None:
+        return jsonify({"msg": "Email déjà utilisé par un autre utilisateur"}), 402
+    if not phone.isdigit():
+        return (
+            jsonify(
+                {"msg": "Le numéro de téléphone doit contenir uniquement des chiffres"}
+            ),
+            403,
+        )
+    existing_password = users.find_one({"password": password})
+    if existing_password is not None:
+        return (
+            jsonify({"msg": "Mot de passe déjà utilisé par un autre utilisateur"}),
+            404,
+        )
+    users.insert_one(
+        {
+            "username": username,
+            "phone": phone,
+            "email": email,
+            "password": password,
+            "image": image,
+            "favorite_articles": favorite_articles,
+            "my_articles": my_articles,
+            "cart": cart,
+        }
+    )
+    return jsonify({"msg": "Profil mis à jour avec succès"}), 200
 
 
 if __name__ == "__main__":
