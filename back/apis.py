@@ -100,6 +100,29 @@ def user_info():
         return jsonify({"msg": "User not found"}), 404
 
 
+@app.route("/get_articles", methods=["GET"])
+@jwt_required()
+def get_articles():
+    articless = articles.find()
+    # user_info = list(articles_cursor)
+    if articless:
+        return dumps(articless), 200
+    else:
+        return jsonify({"msg": "User not found"}), 404
+
+
+@app.route("/get_fav", methods=["GET"])
+@jwt_required()
+def get_fav():
+    current_user_password = get_jwt_identity()
+    user = users.find_one({"password": current_user_password})
+    if user:
+        favs = user.get("favorite_articles", [])
+        return dumps(favs), 200
+    else:
+        return jsonify({"error": "User not found"}), 404
+
+
 @app.route("/addArticle", methods=["POST"])
 @jwt_required()
 def addArticle():
@@ -121,7 +144,7 @@ def addArticle():
         return jsonify({"msg": "L'article a bien été ajouté"}), 200
     else:
         return jsonify({"error": "User not found"}), 404
-    
-    
+
+
 if __name__ == "__main__":
     app.run(debug=True)
