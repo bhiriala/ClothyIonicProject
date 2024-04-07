@@ -100,6 +100,29 @@ def user_info():
         return jsonify({"msg": "User not found"}), 404
 
 
+@app.route("/get_articles", methods=["GET"])
+@jwt_required()
+def get_articles():
+    articless = articles.find()
+    # user_info = list(articles_cursor)
+    if articless:
+        return dumps(articless), 200
+    else:
+        return jsonify({"msg": "User not found"}), 404
+
+
+@app.route("/get_fav", methods=["GET"])
+@jwt_required()
+def get_fav():
+    current_user_password = get_jwt_identity()
+    user = users.find_one({"password": current_user_password})
+    if user:
+        favs = user.get("favorite_articles", [])
+        return dumps(favs), 200
+    else:
+        return jsonify({"error": "User not found"}), 404
+
+
 @app.route("/addArticle", methods=["POST"])
 @jwt_required()
 def addArticle():
@@ -123,6 +146,51 @@ def addArticle():
         return jsonify({"msg": "L'article a bien été ajouté"}), 200
     else:
         return jsonify({"error": "User not found"}), 404
+
+
+@app.route("/addToFav", methods=["POST"])
+@jwt_required()
+def addToFav():
+    price = request.json["price"]
+    name = request.json["name"]
+    image = request.json["image"]
+
+    user_password = get_jwt_identity()
+    user = users.find_one({"password": user_password})
+
+    if user:
+        collection = user.get("favorite_articles", [])
+        new_fav = {"price": price, "name": name, "image": image}
+        collection.append(new_fav)
+        users.update_one(
+            {"password": user_password}, {"$set": {"favorite_articles": collection}}
+        )
+
+        articles.insert_one(new_fav)
+
+        return jsonify({"msg": "L'article a bien été ajouté au favoris"}), 200
+    else:
+        return jsonify({"error": "User not found"}), 404
+
+
+@app.route("/removefromfavoris", methods=["DELETE"])
+@jwt_required()
+def removefromfavoris():
+    try:
+        name = request.json["name"]
+        current_user_password = get_jwt_identity()
+        user = users.find_one({"password": current_user_password})
+        favorite_articels = user.get("favorite_articles", [])
+        updated_favorite_articels = [
+            article for article in favorite_articels if article.get("name") != name
+        ]
+        users.update_one(
+            {"password": current_user_password},
+            {"$set": {"favorite_articles": updated_favorite_articels}},
+        )
+        return jsonify({"msg": f"articel with name {name} removed from favorites"}), 200
+    except Exception as e:
+        return jsonify({"error": str(e)}), 400
 
 
 if __name__ == "__main__":

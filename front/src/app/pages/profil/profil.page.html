@@ -19,16 +19,16 @@
     <img [src]="image" alt="Profile Picture" class="profile-picture">
     <ion-label class="name">{{username}}</ion-label>
   </div>
-
+ 
   <div class="personal-info">
     <ion-item lines="none">
       <ion-icon name="call-outline" class="info-icon" slot="start"></ion-icon>
-      <ion-label> {{phone}} </ion-label>
+      <ion-label style="font-size: 90%;"> {{phone}} </ion-label>
     </ion-item>
 
     <ion-item lines="none">
       <ion-icon name="mail-outline" class="info-icon" slot="start"></ion-icon>
-      <ion-label> {{email}} </ion-label>
+      <ion-label style="font-size:  90%;"> {{email}} </ion-label>
     </ion-item>
   </div>
   
@@ -39,9 +39,9 @@
 
   <p class="text ">My Articles :</p>
 
-  <ion-row class="ion-justify-content-center">
+  <ion-row class="ion-justify-content-center row aticlescontainer">
     <ng-container *ngFor="let article of myarticles">
-      <app-myarticles [article]="article"></app-myarticles>
+        <app-myarticles class="col-6" [article]="article"></app-myarticles>
     </ng-container>
   </ion-row>
 </ion-content>

@@ -9,7 +9,7 @@
 
 <ion-content [fullscreen]="true">
   <ion-row class="ion-justify-content-center">
-    <ion-col size="3" *ngFor="let article of favService.getFavItems()">
+    <ion-col size="3" *ngFor="let article of favItems">
       <app-clothes-article [article]="article"></app-clothes-article>
     </ion-col>
   </ion-row>

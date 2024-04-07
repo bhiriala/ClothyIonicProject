@@ -1,12 +1,8 @@
-<ion-card class="clothes-card" [routerLink]="'/clothes-details/' + article.id" >
-  <!-- <div  -->
-  <ion-img [src]="article.imageUrl"></ion-img>
+<ion-card class="clothes-card" [routerLink]="'/clothes-details/' + article.id">
+  <ion-img alt="" [src]="article.image"></ion-img>
   <ion-card-content>
-    <ion-card-title>{{ article.name }}</ion-card-title>
-    <ion-card-subtitle>{{ article.price }}</ion-card-subtitle>
-    <ion-button fill="clear"  class="edit-button" (click)="openEditModal()">
-      <ion-icon name="create-outline" class="icon"></ion-icon>
-    </ion-button>
+    <ion-card-subtitle>Name: {{ article.name }}</ion-card-subtitle>
+    <ion-card-subtitle>Price: ${{ article.price }}</ion-card-subtitle>
+    <ion-icon (click)="openEditModal()" style="font-size: 20px;" name="create-outline" class="icon"></ion-icon>
   </ion-card-content>
-  <!-- </div> -->
 </ion-card>

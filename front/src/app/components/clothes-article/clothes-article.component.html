@@ -1,8 +1,6 @@
 <ion-card class="clothes-card">
-  <ion-img *ngIf="article.imageUrl" loading="lazy" alt="{{ article.name }}" [src]="article.imageUrl"></ion-img>
+  <img *ngIf="article.image" loading="lazy" alt="{{ article.name }}" class="img"  [src]="article.image"/>
   <ion-card-content>
-<!-- loading="lazy" to optimize image loading  -->
-<!-- *ngIf="article.imageUrl" to handle error -->
     <ion-row>
       <ion-col>
         <ion-card-title>{{ article.name }}</ion-card-title>
@@ -10,8 +8,8 @@
       </ion-col>
 
       <ion-col class="ion-text-right">
-        <ion-button aria-label="Add to favorites" fill="clear" (click)="toggleFavorite(article)" [class.favorite]="isFavorite">
-          <ion-icon name="heart" slot="icon-only" [ngClass]="{ 'favorite': isFavorite }"></ion-icon>
+        <ion-button aria-label="Add to favorites" fill="clear" (click)="toggleFavorite(article)">
+          <ion-icon name="heart" slot="icon-only" [ngClass]="{'favorite': isFavorite, 'not-favorite': !isFavorite}"></ion-icon>
         </ion-button>
       </ion-col>
     </ion-row>

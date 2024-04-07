@@ -34,11 +34,12 @@
   </ion-card>
   
   
-  <ion-row class="ion-justify-content-center ">
+  <ion-row class="ion-justify-content-center row">
     <ng-container *ngFor="let article of articles">
-      <app-clothes-article [article]="article" ></app-clothes-article>
+      <app-clothes-article class="col-lg-4 col-md-3 col-8" [article]="article"></app-clothes-article>
     </ng-container>
   </ion-row>
+  
 
 </ion-content>
 
