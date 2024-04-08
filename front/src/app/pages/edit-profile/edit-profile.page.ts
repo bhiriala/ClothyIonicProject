@@ -2,6 +2,7 @@ import { Component, ViewChild } from '@angular/core';
 import type { IonInput } from '@ionic/angular';
 import { ToastController } from '@ionic/angular';
 import axios from 'axios';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-edit-profile',
@@ -13,6 +14,7 @@ export class EditProfilePage {
   phone: string = '';
   email: string = '';
   password: string = '';
+  image: string = '';
   showPassword: boolean = false;
 
   //controle de saisie pour username ( alphanumeric )
@@ -24,7 +26,7 @@ export class EditProfilePage {
     this.ionInputEl.value = this.inputModel = filteredValue;
   }
 
-  constructor(private toastController: ToastController) {}
+  constructor(private toastController: ToastController, private router: Router) {}
 
   ngOnInit() {
     this.getUserInfo();
@@ -41,7 +43,7 @@ export class EditProfilePage {
 
       if (response.status === 200) {
         const userInfo = response.data[0];
-        
+        this.image = userInfo.image;
         this.username = userInfo.username;
         this.phone = userInfo.phone;
         this.email = userInfo.email;
@@ -49,7 +51,6 @@ export class EditProfilePage {
       }
     } catch (error) {
       console.error('Error fetching user information:', error);
-      // Display error toast if needed
       this.presentToast('Error fetching user information');
     }
   }
@@ -71,7 +72,7 @@ export class EditProfilePage {
     const yourAccessToken = sessionStorage.getItem('token');
     try {
       const response = await axios.put('http://localhost:5000/editProfile', 
-      { username : this.username, phone : this.phone, email: this.email, new_password : this.password }, 
+      { username : this.username, phone : this.phone, email: this.email, new_password : this.password, image: this.image }, 
       {
         headers: {
           Authorization: `Bearer ${yourAccessToken}`
@@ -79,7 +80,9 @@ export class EditProfilePage {
       });
       if ( response.status == 200) {
         console.log('Profile updated successfully', response.data);
+        this.router.navigateByUrl('/tabs/profil');
         window.location.reload();
+
       }
 
     } catch (error) {
@@ -95,4 +98,18 @@ export class EditProfilePage {
     });
     await toast.present();
   }
+
+  
+  convertToBase64(event: any) {
+    const reader = new FileReader();
+    reader.readAsDataURL(event.target.files[0]);
+    reader.onload = () => {
+      this.image = reader.result as string;
+      console.log(this.image);
+    };
+    reader.onerror = error => {
+      console.log("Error: ", error);
+    };
+  }
+
 }

@@ -29,8 +29,28 @@ export class ClothesArticleComponent {
     this.isFavorite = !this.isFavorite; 
     }
 
+
+
   async addCart(item: any) {
-    this.cartService.addToCart(item);
+    const yourAccessToken = sessionStorage.getItem('token');
+    try {
+      const response = await axios.post('http://localhost:5000/addToCart', 
+      { id: this.article._id ,name : this.article.name, price: this.article.price, image: this.article.image }, 
+      {
+        headers: {
+          Authorization: `Bearer ${yourAccessToken}`
+        }
+      });
+      if ( response.status == 200) {
+        console.log('Profile updated successfully', response.data);
+        // window.location.reload();
+      }
+
+    } catch (error) {
+      console.error('Error updating profile:', error);
+    }
+
+    // this.cartService.addToCart(item);
 
     const toast = await this.toastController.create({
       message: 'Successfully added to cart',

@@ -10,8 +10,12 @@
 <ion-content [fullscreen]="true" class="content-container">
   <div class="profile-content">
     <div class="profile-picture-container">
-      <img src="../../../assets/profilpic.png" alt="Profile Picture" class="profile-picture">
+      <img [src]="image" alt="Profile Picture" class="profile-picture">
   </div>
+
+  <ion-item class="input-item">
+    <input class="selectpho" type="file" accept="image/*" (change)="convertToBase64($event)"/>
+  </ion-item>
 
     <ion-item class="input-item">
       <!-- <ion-label position="floating">Username</ion-label> -->

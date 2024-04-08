@@ -11,7 +11,7 @@
   <ion-list>
     <ion-item *ngFor="let item of cartItems">
       <ion-thumbnail slot="start">
-        <ion-img [src]="item.imageUrl"></ion-img>
+        <ion-img [src]="item.image"></ion-img>
       </ion-thumbnail>
       <ion-label>
         <h2>{{ item.name }}</h2>
@@ -28,7 +28,7 @@
       <ion-card-title>Cart Total</ion-card-title>
     </ion-card-header>
     <ion-card-content>
-      <p>Total: {{ calculateTotal() }}</p>
+      <p>Total: {{ total }}</p>
       
     </ion-card-content>
 
