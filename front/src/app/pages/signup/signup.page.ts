@@ -48,7 +48,7 @@ export class SignupPage implements OnInit {
       if (response.status === 200) {
         alert("Account created successfully");
         console.log("Account created successfully");
-        this.router.navigateByUrl('/tabs/home-page');
+        this.router.navigateByUrl('/login');
       } else {
         alert("Creation failed");
       }

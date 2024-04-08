@@ -1,21 +1,21 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
-    <ion-icon slot="start" name="shirt-outline" ></ion-icon>
+    <ion-icon slot="start" name="shirt-outline"></ion-icon>
     <ion-title>Reclothy</ion-title>
-    <ion-button fill="clear" slot="end" [routerLink]="['/cart']" >
-      <ion-icon slot="icon-only" style="color: black;" name="cart-outline"></ion-icon>
-    </ion-button>
+    <ion-buttons slot="end">
+      <ion-button fill="clear" [routerLink]="['/cart']">
+        <ion-icon slot="icon-only" name="cart-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  
   <ion-searchbar placeholder="Search for clothes..." debounce="500"></ion-searchbar>
 
   <div class="image-container">
     <img src="../../../assets/cover.png" alt="Cover Image" class="cover">
   </div>
-    
 
   <ion-card>
     <ion-card-content class="categories">
@@ -32,16 +32,13 @@
       </div>
     </ion-card-content>
   </ion-card>
-  
-  
-  <ion-row class="ion-justify-content-center ">
+
+  <ion-row class="ion-justify-content-center">
     <ion-col size-lg="3" size-md="4" size-sm="6" *ngFor="let article of articles">
-      <app-clothes-article  [article]="article"></app-clothes-article>
+      <app-clothes-article [article]="article"></app-clothes-article>
+    </ion-col>
+    <ion-col size-lg="3" size-md="4" size-sm="6" *ngFor="let favarticle of fav_articles">
+      <app-favarticles [article]="favarticle"></app-favarticles>
     </ion-col>
   </ion-row>
-  
-
 </ion-content>
-
-
-

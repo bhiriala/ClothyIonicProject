@@ -23,6 +23,7 @@ export class ClothesArticleComponent {
       this.favService.removeFromFav(article);
       console.log('Removed from favorites:', article.name);
     } else {
+      console.log(article)
       this.favService.addToFav(article);
       console.log('Added to favorites:', article.name);
     }

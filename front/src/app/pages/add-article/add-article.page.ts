@@ -29,6 +29,7 @@ export class AddArticlePage {
       }
     });
     if (response.status == 200 ){
+      window.location.reload();
       console.log("success");
     }
 

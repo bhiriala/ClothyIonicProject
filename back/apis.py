@@ -105,12 +105,36 @@ def user_info():
 @app.route("/get_articles", methods=["GET"])
 @jwt_required()
 def get_articles():
-    articless = articles.find()
-    # user_info = list(articles_cursor)
-    if articless:
-        return dumps(articless), 200
+    user_password = get_jwt_identity()
+    user = users.find_one({"password": user_password})
+    articless = list(articles.find())
+
+    if user:
+        favorite_articles = user.get("favorite_articles", [])
+        favorite_ids = [article["_id"] for article in favorite_articles]
+        articless = [
+            article for article in articless if article["_id"] not in favorite_ids
+        ]
+        data_to_return = {"favorite_articles": favorite_articles, "articles": articless}
+        return dumps(data_to_return), 200
     else:
         return jsonify({"msg": "User not found"}), 404
+
+
+# @app.route("/get_articles", methods=["GET"])
+# @jwt_required()
+# def get_articles():
+#     user_password = get_jwt_identity()
+#     user = users.find_one({"password": user_password})
+#     articless = articles.find()
+#     if articless and user:
+#         favorite_articles = user.get('favorite_articles', [])
+#         for article in articless :
+#             for aticlee in favorite_articles:
+#                 if(article["_id"]==aticlee["_id"]):
+#                     articless.delete(article)
+#     # else:
+#     #     return jsonify({"msg": "User not found"}), 404
 
 
 @app.route("/get_fav", methods=["GET"])
@@ -155,6 +179,7 @@ def addArticle():
 @app.route("/addToFav", methods=["POST"])
 @jwt_required()
 def addToFav():
+    id = request.json["id"]
     price = request.json["price"]
     name = request.json["name"]
     image = request.json["image"]
@@ -164,14 +189,11 @@ def addToFav():
 
     if user:
         collection = user.get("favorite_articles", [])
-        new_fav = {"price": price, "name": name, "image": image}
+        new_fav = {"_id": id, "price": price, "name": name, "image": image}
         collection.append(new_fav)
         users.update_one(
             {"password": user_password}, {"$set": {"favorite_articles": collection}}
         )
-
-        articles.insert_one(new_fav)
-
         return jsonify({"msg": "L'article a bien été ajouté au favoris"}), 200
     else:
         return jsonify({"error": "User not found"}), 404

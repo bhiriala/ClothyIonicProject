@@ -9,6 +9,7 @@ import { HomePagePageRoutingModule } from './home-page-routing.module';
 import { HomePagePage } from './home-page.page';
 
 import { ClothesArticleModule } from '../../components/clothes-article/clothes-article.module';
+import { FavarticlesModule } from '../../components/favarticles/favarticles.module';
 
 @NgModule({
   imports: [
@@ -16,7 +17,8 @@ import { ClothesArticleModule } from '../../components/clothes-article/clothes-a
     FormsModule,
     IonicModule,
     HomePagePageRoutingModule,
-    ClothesArticleModule
+    ClothesArticleModule,
+    FavarticlesModule
   ],
   declarations: [HomePagePage]
 })

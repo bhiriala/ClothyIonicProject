@@ -10,10 +10,10 @@ export class FavoriteService {
   constructor() {}
 
   async addToFav(item: any) {
-    item.isFavorite = true; 
     const accesToken = sessionStorage.getItem("token");
     const response = await axios.post("http://localhost:5000/addToFav",
     {
+      id: item._id,
       price: item.price,
       name: item.name,
       image: item.image
@@ -24,14 +24,13 @@ export class FavoriteService {
       }
     });
     if (response.status == 200 ){
+      window.location.reload();
       console.log("success");
     }
 
-    // this.favItems.push(item);
   }
 
   async removeFromFav(item: any){
-    item.isFavorite = false;
     const accesToken = sessionStorage.getItem("token");
     const response = await axios.delete('http://localhost:5000/removefromfavoris', {
       headers: {
@@ -41,6 +40,7 @@ export class FavoriteService {
     });
 
     if (response.status == 200 ){
+      window.location.reload();
       console.log("success");
     }
 
