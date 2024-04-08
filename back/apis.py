@@ -1,3 +1,5 @@
+import random
+import string
 from flask import Flask, request, jsonify, redirect
 from flask_cors import CORS, cross_origin
 import base64
@@ -129,13 +131,15 @@ def addArticle():
     price = request.json["price"]
     name = request.json["name"]
     image = request.json["image"]
-
+    
+    id = ''.join(random.choices(string.ascii_letters + string.digits, k=20))
+    
     user_password = get_jwt_identity()
     user = users.find_one({ "password" : user_password })
     
     if user:
         collection = user.get('my_articles', [])
-        new_article = {"price": price, "name": name, "image": image}
+        new_article = {"_id": id , "price": price, "name": name, "image": image}
         collection.append(new_article)
         users.update_one({"password": user_password}, {"$set": {"my_articles": collection}})    
         
@@ -144,7 +148,63 @@ def addArticle():
         return jsonify({"msg": "L'article a bien été ajouté"}), 200
     else:
         return jsonify({"error": "User not found"}), 404
+    
+    
+@app.route("/editArticle", methods=["PUT"])
+@jwt_required()
+def editArticle():
+    price = request.json.get("price")
+    name = request.json.get("name")
+    id = request.json.get("id")
+    
+    user_password = get_jwt_identity()
+    user = users.find_one({ "password" : user_password })
+    
+    if user:
+        my_articles = user.get('my_articles', [])
+        
+        for article in my_articles:
+            if "_id" in article and article["_id"] == id: 
+                article["price"] = price
+                article["name"] = name
+                break
+        else:
+            return jsonify({"error": "Article not found"}), 404
+            
+        users.update_one({"password": user_password}, {"$set": {"my_articles": my_articles}})
+        articles.update_one({"_id": id}, {"$set": {"name": name, "price": price}})
+        
+        
+        return jsonify({"msg": "L'article a bien été modifé"}), 200
+    else:
+        return jsonify({"error": "User not found"}), 404
 
+
+@app.route("/editProfile", methods=["PUT"])
+@jwt_required()
+def editProfile():
+    user_password = get_jwt_identity()
+    user = users.find_one({ "password" : user_password })
+
+    username = request.json.get("username")
+    phone = request.json.get("phone")
+    email = request.json.get("email")
+    # new_password = request.json.get("new_password")
+
+    if user:
+        update_data = {"username": username, "phone": phone, "email": email}
+        # if new_password:
+        #     update_data["password"] = new_password
+
+        # users.update_one({"password": user_password}, {"$set": update_data})
+
+        return jsonify({"msg": "Le profil a bien été modifé"}), 200
+    else:
+        return jsonify({"error": "User not found"}), 404
+
+
+    
+        
 
 if __name__ == "__main__":
     app.run(debug=True)
