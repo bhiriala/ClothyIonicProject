@@ -10,6 +10,8 @@ import re
 from bson.json_util import dumps
 from datetime import timedelta
 from pymongo import MongoClient
+import random
+import string
 
 app = Flask(__name__)
 CORS(app)
@@ -130,12 +132,14 @@ def addArticle():
     name = request.json["name"]
     image = request.json["image"]
 
+    id = "".join(random.choices(string.ascii_letters + string.digits, k=20))
+
     user_password = get_jwt_identity()
     user = users.find_one({"password": user_password})
 
     if user:
         collection = user.get("my_articles", [])
-        new_article = {"price": price, "name": name, "image": image}
+        new_article = {"_id": id, "price": price, "name": name, "image": image}
         collection.append(new_article)
         users.update_one(
             {"password": user_password}, {"$set": {"my_articles": collection}}

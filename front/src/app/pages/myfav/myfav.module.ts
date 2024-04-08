@@ -9,6 +9,7 @@ import { MyfavPageRoutingModule } from './myfav-routing.module';
 import { MyfavPage } from './myfav.page';
 
 import { ClothesArticleModule } from '../../components/clothes-article/clothes-article.module';
+import { FavarticlesModule } from '../../components/favarticles/favarticles.module';
 
 @NgModule({
   imports: [
@@ -16,7 +17,8 @@ import { ClothesArticleModule } from '../../components/clothes-article/clothes-a
     FormsModule,
     IonicModule,
     MyfavPageRoutingModule,
-    ClothesArticleModule
+    ClothesArticleModule,
+    FavarticlesModule
   ],
   declarations: [MyfavPage]
 })
