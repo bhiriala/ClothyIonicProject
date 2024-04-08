@@ -186,6 +186,26 @@ def addToFav():
         return jsonify({"error": "User not found"}), 404
 
 
+@app.route("/removefromfavoris", methods=["DELETE"])
+@jwt_required()
+def removefromfavoris():
+    try:
+        name = request.json["name"]
+        current_user_password = get_jwt_identity()
+        user = users.find_one({"password": current_user_password})
+        favorite_articels = user.get("favorite_articles", [])
+        updated_favorite_articels = [
+            article for article in favorite_articels if article.get("name") != name
+        ]
+        users.update_one(
+            {"password": current_user_password},
+            {"$set": {"favorite_articles": updated_favorite_articels}},
+        )
+        return jsonify({"msg": f"articel with name {name} removed from favorites"}), 200
+    except Exception as e:
+        return jsonify({"error": str(e)}), 400
+
+
 @app.route("/addArticle", methods=["POST"])
 @jwt_required()
 def addArticle():
