@@ -163,6 +163,29 @@ def get_cart():
         return jsonify({"error": "User not found"}), 404
 
 
+@app.route("/addToFav", methods=["POST"])
+@jwt_required()
+def addToFav():
+    id = request.json["id"]
+    price = request.json["price"]
+    name = request.json["name"]
+    image = request.json["image"]
+
+    user_password = get_jwt_identity()
+    user = users.find_one({"password": user_password})
+
+    if user:
+        collection = user.get("favorite_articles", [])
+        new_fav = {"_id": id, "price": price, "name": name, "image": image}
+        collection.append(new_fav)
+        users.update_one(
+            {"password": user_password}, {"$set": {"favorite_articles": collection}}
+        )
+        return jsonify({"msg": "L'article a bien été ajouté au favoris"}), 200
+    else:
+        return jsonify({"error": "User not found"}), 404
+
+
 @app.route("/addArticle", methods=["POST"])
 @jwt_required()
 def addArticle():
