@@ -21,7 +21,8 @@ export class AddArticlePage {
     {
       price: this.price,
       name: this.name,
-      image: this.image
+      image: this.image,
+  
     },
     {
       headers: {

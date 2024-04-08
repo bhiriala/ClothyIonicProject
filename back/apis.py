@@ -1,3 +1,5 @@
+import random
+import string
 from flask import Flask, request, jsonify, redirect
 from flask_cors import CORS, cross_origin
 import base64
@@ -149,6 +151,18 @@ def get_fav():
         return jsonify({"error": "User not found"}), 404
 
 
+@app.route("/get_cart", methods=["GET"])
+@jwt_required()
+def get_cart():
+    current_user_password = get_jwt_identity()
+    user = users.find_one({"password": current_user_password})
+    if user:
+        cart = user.get("cart", [])
+        return dumps(cart), 200
+    else:
+        return jsonify({"error": "User not found"}), 404
+
+
 @app.route("/addArticle", methods=["POST"])
 @jwt_required()
 def addArticle():
@@ -176,9 +190,9 @@ def addArticle():
         return jsonify({"error": "User not found"}), 404
 
 
-@app.route("/addToFav", methods=["POST"])
+@app.route("/addToCart", methods=["POST"])
 @jwt_required()
-def addToFav():
+def addToCart():
     id = request.json["id"]
     price = request.json["price"]
     name = request.json["name"]
@@ -188,35 +202,88 @@ def addToFav():
     user = users.find_one({"password": user_password})
 
     if user:
-        collection = user.get("favorite_articles", [])
-        new_fav = {"_id": id, "price": price, "name": name, "image": image}
-        collection.append(new_fav)
+        collection = user.get("cart", [])
+        new_article = {"_id": id, "price": price, "name": name, "image": image}
+        collection.append(new_article)
+        users.update_one({"password": user_password}, {"$set": {"cart": collection}})
+
+        return jsonify({"msg": "L'article a bien été ajouté au panier"}), 200
+    else:
+        return jsonify({"error": "error in adding to cart"}), 404
+
+
+@app.route("/editArticle", methods=["PUT"])
+@jwt_required()
+def editArticle():
+    price = request.json.get("price")
+    name = request.json.get("name")
+    id = request.json.get("id")
+
+    user_password = get_jwt_identity()
+    user = users.find_one({"password": user_password})
+
+    if user:
+        my_articles = user.get("my_articles", [])
+
+        for article in my_articles:
+            if "_id" in article and article["_id"] == id:
+                article["price"] = price
+                article["name"] = name
+                break
+        else:
+            return jsonify({"error": "Article not found"}), 404
+
         users.update_one(
-            {"password": user_password}, {"$set": {"favorite_articles": collection}}
+            {"password": user_password}, {"$set": {"my_articles": my_articles}}
         )
-        return jsonify({"msg": "L'article a bien été ajouté au favoris"}), 200
+        articles.update_one({"_id": id}, {"$set": {"name": name, "price": price}})
+
+        return jsonify({"msg": "L'article a bien été modifé"}), 200
     else:
         return jsonify({"error": "User not found"}), 404
 
 
-@app.route("/removefromfavoris", methods=["DELETE"])
+@app.route("/editProfile", methods=["PUT"])
 @jwt_required()
-def removefromfavoris():
-    try:
-        name = request.json["name"]
-        current_user_password = get_jwt_identity()
-        user = users.find_one({"password": current_user_password})
-        favorite_articels = user.get("favorite_articles", [])
-        updated_favorite_articels = [
-            article for article in favorite_articels if article.get("name") != name
-        ]
-        users.update_one(
-            {"password": current_user_password},
-            {"$set": {"favorite_articles": updated_favorite_articels}},
-        )
-        return jsonify({"msg": f"articel with name {name} removed from favorites"}), 200
-    except Exception as e:
-        return jsonify({"error": str(e)}), 400
+def editProfile():
+    user_password = get_jwt_identity()
+    user = users.find_one({"password": user_password})
+
+    username = request.json.get("username")
+    phone = request.json.get("phone")
+    email = request.json.get("email")
+    image = request.json.get("image")
+
+    if user:
+        update_data = {
+            "username": username,
+            "phone": phone,
+            "email": email,
+            "image": image,
+        }
+        users.update_one({"password": user_password}, {"$set": update_data})
+
+        return jsonify({"msg": "Le profil a bien été modifé"}), 200
+    else:
+        return jsonify({"error": "User not found"}), 404
+
+
+@app.route("/remove_from_cart", methods=["PUT"])
+@jwt_required()
+def removeFromCart():
+    user_password = get_jwt_identity()
+    user = users.find_one({"password": user_password})
+
+    id = request.json.get("id")
+
+    if user:
+        user["cart"] = [item for item in user["cart"] if item["_id"] != id]
+
+        users.update_one({"password": user_password}, {"$set": {"cart": user["cart"]}})
+
+        return jsonify({"msg": "L'article a bien été supprimé"}), 200
+    else:
+        return jsonify({"error": "User not found"}), 404
 
 
 if __name__ == "__main__":

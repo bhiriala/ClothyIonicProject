@@ -1,7 +1,8 @@
 import { Component, ViewChild } from '@angular/core';
 import type { IonInput } from '@ionic/angular';
 import { ToastController } from '@ionic/angular';
-
+import axios from 'axios';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-edit-profile',
@@ -9,10 +10,11 @@ import { ToastController } from '@ionic/angular';
   styleUrls: ['./edit-profile.page.scss'],
 })
 export class EditProfilePage {
-  username: string;
-  phone: string;
-  email: string;
-  password: string;
+  username: string = '';
+  phone: string = '';
+  email: string = '';
+  password: string = '';
+  image: string = '';
   showPassword: boolean = false;
 
   //controle de saisie pour username ( alphanumeric )
@@ -24,19 +26,69 @@ export class EditProfilePage {
     this.ionInputEl.value = this.inputModel = filteredValue;
   }
 
-  constructor(private toastController: ToastController) {
-    this.username = "Markita";
-    this.phone = "12345678";
-    this.email = "markita@kehfr.com";
-    this.password = "password123";
+  constructor(private toastController: ToastController, private router: Router) {}
+
+  ngOnInit() {
+    this.getUserInfo();
+  }
+
+  async getUserInfo() {
+    const yourAccessToken = sessionStorage.getItem('token');
+    try {
+      const response = await axios.get('http://localhost:5000/user_info', {
+        headers: {
+          Authorization: `Bearer ${yourAccessToken}`
+        }
+      });
+
+      if (response.status === 200) {
+        const userInfo = response.data[0];
+        this.image = userInfo.image;
+        this.username = userInfo.username;
+        this.phone = userInfo.phone;
+        this.email = userInfo.email;
+        this.password = userInfo.password;
+      }
+    } catch (error) {
+      console.error('Error fetching user information:', error);
+      this.presentToast('Error fetching user information');
+    }
+  }
+
+  async presentToast(message: string) {
+    const toast = await this.toastController.create({
+      message,
+      duration: 2000
+    });
+    toast.present();
   }
 
   togglePasswordVisibility() {
     this.showPassword = !this.showPassword;
   }
 
+
   async saveChanges() {
-    console.log("Changes saved");
+    const yourAccessToken = sessionStorage.getItem('token');
+    try {
+      const response = await axios.put('http://localhost:5000/editProfile', 
+      { username : this.username, phone : this.phone, email: this.email, new_password : this.password, image: this.image }, 
+      {
+        headers: {
+          Authorization: `Bearer ${yourAccessToken}`
+        }
+      });
+      if ( response.status == 200) {
+        console.log('Profile updated successfully', response.data);
+        this.router.navigateByUrl('/tabs/profil');
+        window.location.reload();
+
+      }
+
+    } catch (error) {
+      console.error('Error updating profile:', error);
+    }
+
 
     const toast = await this.toastController.create({
       message: 'Changes saved successfully',
@@ -46,4 +98,18 @@ export class EditProfilePage {
     });
     await toast.present();
   }
+
+  
+  convertToBase64(event: any) {
+    const reader = new FileReader();
+    reader.readAsDataURL(event.target.files[0]);
+    reader.onload = () => {
+      this.image = reader.result as string;
+      console.log(this.image);
+    };
+    reader.onerror = error => {
+      console.log("Error: ", error);
+    };
+  }
+
 }
