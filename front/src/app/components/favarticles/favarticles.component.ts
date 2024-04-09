@@ -14,7 +14,11 @@ export class FavarticlesComponent{
 
   constructor(private toastController: ToastController, private cartService: CartService, private favService : FavoriteService, private router: Router) {}
 
-
+  async showArticleProfile(article: any) {
+    // Naviguer vers la page 'profilearticle' en passant l'article comme paramètre
+    await this.router.navigate(['/profilearticle'], { state: { article } });
+  }
+  
   toggleFavorite(article: any): void {  
       this.favService.removeFromFav(article);
       console.log('Removed from favorites:', article.name); 

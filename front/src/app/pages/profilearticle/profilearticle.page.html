@@ -3,7 +3,6 @@
     <ion-back-button defaultHref="/tabs/home-page" slot="start"></ion-back-button>
     <ion-icon name="shirt-outline" slot="start"></ion-icon>
     <ion-title slot="start">Reclothy</ion-title>
-    <ion-icon name="log-out-outline" (click)="logout()" class="logout-button"></ion-icon>
   </ion-toolbar>
 </ion-header>
 
@@ -30,16 +29,13 @@
     </ion-item>
   </div>
   
-  <ion-button expand="block" fill="outline" [routerLink]="['/edit-profile']" class="edit-button">
-    Edit Profile
-    <ion-icon name="chevron-forward-outline" slot="end"></ion-icon>
-  </ion-button>
 
-  <p class="text ">My Articles :</p>
+
+  <p class="text ">Articles :</p>
 
   <ion-row class="ion-justify-content-center row aticlescontainer">
     <ng-container *ngFor="let article of myarticles">
-        <app-myarticles class="col-6" [article]="article"></app-myarticles>
+        <app-profile-article class="col-6" [article]="article"></app-profile-article>
     </ng-container>
   </ion-row>
 </ion-content>

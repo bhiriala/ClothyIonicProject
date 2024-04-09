@@ -80,7 +80,6 @@ export class EditProfilePage {
       });
       if ( response.status == 200) {
         console.log('Profile updated successfully', response.data);
-        this.router.navigateByUrl('/tabs/profil');
         window.location.reload();
 
       }

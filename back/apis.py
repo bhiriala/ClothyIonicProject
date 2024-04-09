@@ -104,6 +104,18 @@ def user_info():
         return jsonify({"msg": "User not found"}), 404
 
 
+@app.route("/user_info_article", methods=["GET"])
+@jwt_required()
+def user_info_article():
+    username = request.args.get("username")
+    user_info_cursor = users.find({"username": username})
+    user_info = list(user_info_cursor)
+    if user_info:
+        return dumps(user_info), 200
+    else:
+        return jsonify({"msg": "User not found"}), 404
+
+
 @app.route("/get_articles", methods=["GET"])
 @jwt_required()
 def get_articles():
@@ -167,6 +179,7 @@ def get_cart():
 @jwt_required()
 def addToFav():
     id = request.json["id"]
+    username = request.json["username"]
     price = request.json["price"]
     name = request.json["name"]
     image = request.json["image"]
@@ -176,7 +189,13 @@ def addToFav():
 
     if user:
         collection = user.get("favorite_articles", [])
-        new_fav = {"_id": id, "price": price, "name": name, "image": image}
+        new_fav = {
+            "_id": id,
+            "username": username,
+            "price": price,
+            "name": name,
+            "image": image,
+        }
         collection.append(new_fav)
         users.update_one(
             {"password": user_password}, {"$set": {"favorite_articles": collection}}
@@ -217,10 +236,17 @@ def addArticle():
 
     user_password = get_jwt_identity()
     user = users.find_one({"password": user_password})
+    username = user.get("username")
 
     if user:
         collection = user.get("my_articles", [])
-        new_article = {"_id": id, "price": price, "name": name, "image": image}
+        new_article = {
+            "_id": id,
+            "username": username,
+            "price": price,
+            "name": name,
+            "image": image,
+        }
         collection.append(new_article)
         users.update_one(
             {"password": user_password}, {"$set": {"my_articles": collection}}

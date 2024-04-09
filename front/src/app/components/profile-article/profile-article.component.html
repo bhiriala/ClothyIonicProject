@@ -1,0 +1,7 @@
+<ion-card class="clothes-card" [routerLink]="'/clothes-details/' + article.id">
+  <ion-img alt="" [src]="article.image"></ion-img>
+  <ion-card-content>
+    <ion-card-subtitle>Name: {{ article.name }}</ion-card-subtitle>
+    <ion-card-subtitle>Price: ${{ article.price }}</ion-card-subtitle>
+  </ion-card-content>
+</ion-card>

@@ -15,6 +15,7 @@ export class FavoriteService {
     {
       id: item._id,
       price: item.price,
+      username:item.username,
       name: item.name,
       image: item.image
     },
