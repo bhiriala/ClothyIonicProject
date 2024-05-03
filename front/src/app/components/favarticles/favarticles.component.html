@@ -2,18 +2,16 @@
   <img *ngIf="article.image" loading="lazy" alt="{{ article.name }}" class="img"  [src]="article.image"/>
   <ion-card-content>
     <ion-row>
+
       <ion-col>
         <ion-card-title class="hover-effect"  style="font-size: 17px; color: rgb(183, 232, 222); cursor: pointer;"  (click)="showArticleProfile(article)">{{ article.username }}</ion-card-title>
         <ion-card-subtitle>{{ article.name }}</ion-card-subtitle>
-        <ion-card-subtitle>${{ article.price }}</ion-card-subtitle>
-        <ion-icon (click)="toggleFavorite(article)" style="font-size: 20px;" name="heart" class="favorite"></ion-icon>
+        <ion-card-subtitle>{{ article.price }}DT</ion-card-subtitle>
+        <ion-card-subtitle>{{ article.category }}</ion-card-subtitle>
+
+        <ion-icon (click)="toggleFavorite(article)" style="font-size: 20px;" name="heart"  [ngClass]="{'favorite': isFavorite, 'not-favorite': !isFavorite}"></ion-icon>
       </ion-col>
   
-        <!-- <ion-col class="ion-text-right">
-          <ion-button aria-label="Add to favorites" fill="clear" (click)="toggleFavorite(article)">
-            <ion-icon name="heart" slot="icon-only" [ngClass]="{'favorite': isFavorite, 'not-favorite': !isFavorite}" style="font-size: 26px;"></ion-icon>
-          </ion-button>
-        </ion-col> -->
     </ion-row>
   
     <ion-button (click)="addCart(article)" expand="block" class="add-button">Add to cart</ion-button>

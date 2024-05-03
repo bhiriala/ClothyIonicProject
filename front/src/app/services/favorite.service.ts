@@ -17,7 +17,8 @@ export class FavoriteService {
       price: item.price,
       username:item.username,
       name: item.name,
-      image: item.image
+      image: item.image,
+      category: item.category
     },
     {
       headers: {

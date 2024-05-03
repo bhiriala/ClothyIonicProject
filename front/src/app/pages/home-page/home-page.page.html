@@ -21,11 +21,11 @@
     <ion-card-content class="categories">
       <h1>Categories</h1>
       <div class="category-buttons-container">
-        <ion-button class="button" color="dark">
+        <ion-button class="button" color="dark"  (click)="womenClickedFunction()">
           <ion-icon slot="start" name="woman"></ion-icon>
           Women
         </ion-button>
-        <ion-button class="button" color="dark">
+        <ion-button class="button" color="dark" (click)="menClickedFunction()" >
           <ion-icon slot="start" name="man"></ion-icon>
           Men
         </ion-button>
@@ -34,11 +34,42 @@
   </ion-card>
 
   <ion-row class="ion-justify-content-center">
-    <ion-col size-lg="3" size-md="4" size-sm="6" *ngFor="let article of articles">
-      <app-clothes-article [article]="article"></app-clothes-article>
-    </ion-col>
-    <ion-col size-lg="3" size-md="4" size-sm="6" *ngFor="let favarticle of fav_articles">
-      <app-favarticles [article]="favarticle"></app-favarticles>
-    </ion-col>
+    
+    <ng-container *ngIf="!men_clicked && !women_clicked">
+      <ion-col  *ngFor="let article of filteredArticles">
+        <app-clothes-article [article]="article"></app-clothes-article>
+      </ion-col>
+      <ion-col  *ngFor="let favarticle of fav_articles">
+        <app-favarticles [article]="favarticle"></app-favarticles>
+      </ion-col>
+    </ng-container>
+
+    <ng-container *ngIf="men_clicked">
+      <ion-col *ngFor="let article of filteredArticles">
+        <ng-container *ngIf="article.category == 'man'">
+          <app-clothes-article [article]="article"></app-clothes-article>
+        </ng-container>
+      </ion-col>
+      <ion-col  *ngFor="let favarticle of fav_articles">
+        <ng-container *ngIf="favarticle.category == 'man'">
+          <app-favarticles [article]="favarticle"></app-favarticles>
+        </ng-container>
+      </ion-col>
+    </ng-container>
+
+    <ng-container *ngIf="women_clicked">
+      <ion-col  *ngFor="let article of filteredArticles">
+        <ng-container *ngIf="article.category == 'woman'">
+          <app-clothes-article [article]="article"></app-clothes-article>
+        </ng-container>
+      </ion-col>
+      <ion-col *ngFor="let favarticle of fav_articles">
+        <ng-container *ngIf="favarticle.category == 'woman'">
+          <app-favarticles [article]="favarticle"></app-favarticles>
+        </ng-container>
+      </ion-col>
+    </ng-container>
+    
   </ion-row>
+  
 </ion-content>

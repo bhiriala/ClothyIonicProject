@@ -125,30 +125,25 @@ def get_articles():
 
     if user:
         favorite_articles = user.get("favorite_articles", [])
+        all_articles = [
+            article for article in articless if article["_id"] 
+        ]
         favorite_ids = [article["_id"] for article in favorite_articles]
+        men = [
+            article for article in all_articles if ((article["category"] == "man" ) ) 
+        ]
+        women = [
+            article for article in all_articles if ((article["category"] == "woman") ) 
+        ]
         articless = [
             article for article in articless if article["_id"] not in favorite_ids
         ]
-        data_to_return = {"favorite_articles": favorite_articles, "articles": articless}
+       
+        data_to_return = {"favorite_articles": favorite_articles, "articles": articless, "men": men, "women": women}
         return dumps(data_to_return), 200
     else:
         return jsonify({"msg": "User not found"}), 404
 
-
-# @app.route("/get_articles", methods=["GET"])
-# @jwt_required()
-# def get_articles():
-#     user_password = get_jwt_identity()
-#     user = users.find_one({"password": user_password})
-#     articless = articles.find()
-#     if articless and user:
-#         favorite_articles = user.get('favorite_articles', [])
-#         for article in articless :
-#             for aticlee in favorite_articles:
-#                 if(article["_id"]==aticlee["_id"]):
-#                     articless.delete(article)
-#     # else:
-#     #     return jsonify({"msg": "User not found"}), 404
 
 
 @app.route("/get_fav", methods=["GET"])
@@ -183,18 +178,25 @@ def addToFav():
     price = request.json["price"]
     name = request.json["name"]
     image = request.json["image"]
+    category = request.json["category"]
 
     user_password = get_jwt_identity()
     user = users.find_one({"password": user_password})
 
     if user:
         collection = user.get("favorite_articles", [])
+
+        # Check if the article with the given ID already exists in the favorites
+        if any(article["_id"] == id for article in collection):
+            return jsonify({"error": "Article already exists in favorites"}), 400
+
         new_fav = {
             "_id": id,
             "username": username,
             "price": price,
             "name": name,
             "image": image,
+            "category": category
         }
         collection.append(new_fav)
         users.update_one(
@@ -203,6 +205,7 @@ def addToFav():
         return jsonify({"msg": "L'article a bien été ajouté au favoris"}), 200
     else:
         return jsonify({"error": "User not found"}), 404
+
 
 
 @app.route("/removefromfavoris", methods=["DELETE"])
@@ -231,6 +234,7 @@ def addArticle():
     price = request.json["price"]
     name = request.json["name"]
     image = request.json["image"]
+    category = request.json["category"]
 
     id = "".join(random.choices(string.ascii_letters + string.digits, k=20))
 
@@ -246,6 +250,7 @@ def addArticle():
             "price": price,
             "name": name,
             "image": image,
+            "category": category
         }
         collection.append(new_article)
         users.update_one(
@@ -286,6 +291,7 @@ def addToCart():
 def editArticle():
     price = request.json.get("price")
     name = request.json.get("name")
+    image = request.json.get("image")
     id = request.json.get("id")
 
     user_password = get_jwt_identity()
@@ -298,6 +304,7 @@ def editArticle():
             if "_id" in article and article["_id"] == id:
                 article["price"] = price
                 article["name"] = name
+                article["image"] = image
                 break
         else:
             return jsonify({"error": "Article not found"}), 404
@@ -305,12 +312,38 @@ def editArticle():
         users.update_one(
             {"password": user_password}, {"$set": {"my_articles": my_articles}}
         )
-        articles.update_one({"_id": id}, {"$set": {"name": name, "price": price}})
+        articles.update_one({"_id": id}, {"$set": {"name": name, "price": price, "image": image}})
 
         return jsonify({"msg": "L'article a bien été modifé"}), 200
     else:
         return jsonify({"error": "User not found"}), 404
 
+@app.route("/removeArticle", methods=["PUT"])
+@jwt_required()
+def removeArticle():
+    user_password = get_jwt_identity()
+    user = users.find_one({"password": user_password})
+   
+    id = request.json.get("id")
+    
+    result = articles.delete_one({"_id": id})
+
+    # Check if the deletion was successful
+    if result.deleted_count == 1:
+        print("Item deleted successfully.")
+    else:
+        print("No item found with the specified ID.")
+
+    if user:
+        user["my_articles"] = [item for item in user["my_articles"] if item["_id"] != id]
+
+        users.update_one({"password": user_password}, {"$set": {"my_articles": user["my_articles"]}})
+
+        return jsonify({"msg": "L'article a bien été supprimé"}), 200
+    else:
+        return jsonify({"error": "User not found"}), 404
+    
+    
 
 @app.route("/editProfile", methods=["PUT"])
 @jwt_required()

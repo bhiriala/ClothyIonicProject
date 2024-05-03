@@ -23,7 +23,6 @@ export class MyarticlesComponent {
       }
     });
     modal.onDidDismiss().then((data) => {
-      // Les données modifiées sont disponibles ici
       const modifiedArticle = data['data']; // 'data' contient les données renvoyées depuis le modal
       console.log('Modified Article:', modifiedArticle);
       // Mettre à jour l'article avec les nouvelles données

@@ -11,6 +11,7 @@ import { ToastController } from '@ionic/angular';
 })
 export class FavarticlesComponent{
   @Input() article: any;
+  isFavorite: boolean = true;
 
   constructor(private toastController: ToastController, private cartService: CartService, private favService : FavoriteService, private router: Router) {}
 

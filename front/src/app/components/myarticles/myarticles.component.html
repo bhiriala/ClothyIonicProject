@@ -2,7 +2,7 @@
   <ion-img alt="" [src]="article.image"></ion-img>
   <ion-card-content>
     <ion-card-subtitle>Name: {{ article.name }}</ion-card-subtitle>
-    <ion-card-subtitle>Price: ${{ article.price }}</ion-card-subtitle>
+    <ion-card-subtitle>Price: {{ article.price }}DT</ion-card-subtitle>
     <ion-icon (click)="openEditModal()" style="font-size: 20px;" name="create-outline" class="icon"></ion-icon>
   </ion-card-content>
 </ion-card>

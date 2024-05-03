@@ -13,6 +13,7 @@ export class ProfilPage implements OnInit {
   phone : string = ""
   image : string = ""
   myarticles = []
+  
   async user_info(){
     const AccessToken = sessionStorage.getItem("token")
     const response = await axios.get("http://localhost:5000/user_info",{

@@ -4,22 +4,38 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content  [fullscreen]="true">
+
+<ion-content [fullscreen]="true">
   <div class="background-image"></div>
   <div class="addarticlecontent">
-  <ion-item class="name">
-    <ion-label position="floating">Name</ion-label>
-    <ion-input [(ngModel)]="name"></ion-input>
-  </ion-item>
-  <ion-item class="price">
-    <ion-label position="floating">Price</ion-label>
-    <ion-input [(ngModel)]="price"></ion-input>
-  </ion-item>
-  
-  <ion-item class="img">
-  <ion-label position="stacked" class="labelimg">select photo</ion-label>
-  <input class="selectpho" type="file" accept="image/*" (change)="convertToBase64($event)"/>
-</ion-item>
-<ion-button class="button" (click)="addArticle()">Add article</ion-button>
-</div>
+    <ion-item class="name">
+      <ion-label position="floating">Article Name</ion-label>
+      <ion-input [(ngModel)]="name"></ion-input>
+    </ion-item>
+    <ion-item class="price">
+      <ion-label position="floating">Price</ion-label>
+      <ion-input [(ngModel)]="price"></ion-input>
+    </ion-item>
+    <ion-radio-group class="radioGrp" [(ngModel)]="category">
+      <ion-item >
+        <ion-label>Category</ion-label>
+      </ion-item>
+      <ion-item>
+        <ion-radio value="woman" ></ion-radio>
+        <ion-label>Woman</ion-label>
+        <ion-radio value="man"></ion-radio>
+        <ion-label>Man</ion-label>
+      </ion-item>
+    </ion-radio-group>
+
+    <ion-item class="img ">
+      <ion-label position="stacked" class="labelimg">Select an image</ion-label>
+      <input class="selectpho" type="file" accept="image/*" (change)="convertToBase64($event)" />
+      <!-- <ion-button class="takePicButton" (click)="takePicture()">Take Picture</ion-button> -->
+
+    </ion-item>
+
+
+    <ion-button class="buttonAdd" (click)="addArticle()">Add Article</ion-button>
+  </div>
 </ion-content>

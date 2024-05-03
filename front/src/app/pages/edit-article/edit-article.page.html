@@ -12,15 +12,27 @@
 <ion-content [fullscreen]="true">
   <ion-card class="inputs">
     <ion-list >
+   
+      <ion-item class="img">
+        <ion-label position="stacked" >Select an image</ion-label>
+        <ion-img alt="" [src]="editedArticle.image"></ion-img>
+        <input  type="file" accept="image/*" (change)="convertToBase64($event)"/>
+      </ion-item>
+
       <ion-item class="name">
         <ion-label position="floating" >Name</ion-label>
         <ion-input type="text" [(ngModel)]="editedArticle.name"></ion-input>
       </ion-item>
+
       <ion-item class="price">
         <ion-label position="floating">Price</ion-label>
         <ion-input type="text" [(ngModel)]="editedArticle.price"></ion-input>
       </ion-item>
+
     </ion-list>
   </ion-card>
+
   <ion-button expand="block" (click)="saveChanges()" class="save">Save Changes</ion-button>
+  <ion-button expand="block" (click)="deleteArticle()" class="save">Delete article</ion-button>
+
 </ion-content>
