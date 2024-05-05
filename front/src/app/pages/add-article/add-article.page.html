@@ -30,12 +30,9 @@
 
     <ion-item class="img ">
       <ion-label position="stacked" class="labelimg">Select an image</ion-label>
-      <input class="selectpho" type="file" accept="image/*" (change)="convertToBase64($event)" />
-      <!-- <ion-button class="takePicButton" (click)="takePicture()">Take Picture</ion-button> -->
-
+      <!-- <input class="selectpho" type="file" accept="image/*" (change)="convertToBase64($event)" /> -->
+      <ion-button class="takePicButton" (click)="takePicture()">Take Picture</ion-button>
     </ion-item>
-
-
     <ion-button class="buttonAdd" (click)="addArticle()">Add Article</ion-button>
   </div>
 </ion-content>

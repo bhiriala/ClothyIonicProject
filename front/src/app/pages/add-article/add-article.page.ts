@@ -1,9 +1,9 @@
 import { Component } from '@angular/core';
-import { Filesystem, Directory } from '@capacitor/filesystem';
-
-// import { Camera, CameraResultType } from '@capacitor/camera';
-
+import { Camera, CameraResultType, CameraSource } from '@capacitor/camera';
+import { Plugins, Capacitor } from '@capacitor/core'; // Ajout de l'importation pour Capacitor
 import axios from 'axios';
+
+const { Storage } = Plugins; // Ajout de l'importation pour Storage
 
 @Component({
   selector: 'app-add-article',
@@ -16,42 +16,53 @@ export class AddArticlePage {
   image: string = '';
   category: string = '';
 
-
   constructor() {}
 
+  convertToBase64(base64String: string) { // Modification de la méthode pour accepter une chaîne de base64 directement
+    this.image = 'data:image/jpeg;base64,' + base64String;
+    console.log(this.image);
+  }
+
+  async takePicture() {
+    try {
+      const image = await Camera.getPhoto({
+        quality: 90,
+        allowEditing: true,
+        resultType: CameraResultType.Base64,
+        source: CameraSource.Prompt,
+        saveToGallery: true
+      });
+
+      if (image.base64String) {
+        if (Capacitor.getPlatform() === 'web') {
+          this.convertToBase64(image.base64String);
+        } else {
+          this.image = 'data:image/jpeg;base64,' + image.base64String;
+          console.log(this.image);
+        }
+      }
+    } catch (error) {
+      console.error("Error taking picture:", error);
+    }
+  }
+
   async addArticle() {
-    const accesToken = sessionStorage.getItem("token");
-    const response = await axios.post("http://localhost:5000/addArticle",
-    {
+    const accessToken = sessionStorage.getItem("token");
+    const response = await axios.post("http://localhost:5000/addArticle", {
       price: this.price,
       name: this.name,
       image: this.image,
       category: this.category
-    },
-    {
+    }, {
       headers: {
-        Authorization: `Bearer ${accesToken}`
+        Authorization: `Bearer ${accessToken}`
       }
     });
-    if (response.status == 200 ){
+    if (response.status === 200) {
       window.location.reload();
       console.log("success");
     }
-
   }
-
-  convertToBase64(event: any) {
-    const reader = new FileReader();
-    reader.readAsDataURL(event.target.files[0]);
-    reader.onload = () => {
-      this.image = reader.result as string;
-      console.log(this.image);
-    };
-    reader.onerror = error => {
-      console.log("Error: ", error);
-    };
-  }
-
   // takePicture = async () => {
   //   const image = await Camera.getPhoto({
   //     quality: 90,
@@ -59,14 +70,14 @@ export class AddArticlePage {
   //     resultType: CameraResultType.Uri
   //   });
   
-  //   // image.webPath will contain a path that can be set as an image src.
-  //   // You can access the original file using image.path, which can be
-  //   // passed to the Filesystem API to read the raw data of the image,
-  //   // if desired (or pass resultType: CameraResultType.Base64 to getPhoto)
-  //   var imageUrl = image.webPath;
+  //   // Vérifier si une image a été capturée avec succès
+  //   if (image && image.webPath) {
+  //     const imageUrl = image.webPath;
   
-  //   // Can be set to the src of an image now
-  //   this.image = imageUrl;
+  //     // Assigner l'URL de l'image à this.image
+  //     this.image = imageUrl;
+  //   } else {
+  //     console.error("No image captured or invalid image data.");
+  //   }
   // };
-  
 }
