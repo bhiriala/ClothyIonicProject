@@ -1,13 +1,12 @@
 import { NgModule } from '@angular/core';
 import { IonicModule } from '@ionic/angular';
 import { CommonModule } from '@angular/common';
-import { MyarticlesComponent } from './myarticles.component';
-
+import { AdminArticleComponent } from './admin-article.component';
 import { RouterModule } from '@angular/router'; //to make the routerLink possible inside the ion-card tag
 
 @NgModule({
   declarations: [
-    MyarticlesComponent
+    AdminArticleComponent
   ],
   imports: [
     IonicModule,
@@ -15,7 +14,7 @@ import { RouterModule } from '@angular/router'; //to make the routerLink possibl
     RouterModule
   ],
   exports: [
-    MyarticlesComponent
+    AdminArticleComponent
   ]
 })
-export class MyarticlesModule {}
+export class AdminArticleModule {}
