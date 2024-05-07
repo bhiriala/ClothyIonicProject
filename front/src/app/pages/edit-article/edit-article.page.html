@@ -10,13 +10,16 @@
 </ion-header>
 
 <ion-content [fullscreen]="true">
+<ion-col >
   <ion-card class="inputs">
     <ion-list >
    
       <ion-item class="img">
-        <ion-label position="stacked" >Select an image</ion-label>
+        <ion-col>
+        <p class="titre">Select an image</p>
         <ion-img alt="" [src]="editedArticle.image"></ion-img>
         <input  type="file" accept="image/*" (change)="convertToBase64($event)"/>
+        </ion-col>
       </ion-item>
 
       <ion-item class="name">
@@ -31,8 +34,9 @@
 
     </ion-list>
   </ion-card>
-
-  <ion-button expand="block" (click)="saveChanges()" class="save">Save Changes</ion-button>
-  <ion-button expand="block" (click)="deleteArticle()" class="save">Delete article</ion-button>
-
+  <ion-row class="row">
+    <button (click)="saveChanges()" class="col-4 save bright">Save</button>
+    <button  (click)="deleteArticle()" class="col-6 delete">Delete article</button>
+  </ion-row>
+</ion-col>
 </ion-content>

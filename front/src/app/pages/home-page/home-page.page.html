@@ -4,7 +4,7 @@
     <ion-title>Reclothy</ion-title>
     <ion-buttons slot="end">
       <ion-button fill="clear" [routerLink]="['/cart']">
-        <ion-icon slot="icon-only" name="cart-outline"></ion-icon>
+        <ion-icon class="cart-icon" slot="icon-only" name="cart-outline" style="font-size:'10px'"></ion-icon>
       </ion-button>
     </ion-buttons>
   </ion-toolbar>
@@ -13,9 +13,16 @@
 <ion-content [fullscreen]="true">
   <ion-searchbar placeholder="Search for clothes..." debounce="500"></ion-searchbar>
 
-  <div class="image-container">
-    <img src="../../../assets/cover.png" alt="Cover Image" class="cover">
-  </div>
+  <!-- <div class="image-container">
+    <img src="../../../assets/maincover.gif" alt="Cover Image" class="cover">
+  </div> -->
+
+  <swiper-container class="image-container" [slidesPerView]="1" [loop]="true">
+    <swiper-slide><img src="assets/covers/maincover.gif" alt="Slide 1"></swiper-slide>
+    <!-- <swiper-slide><img src="assets/covers/mainpage.gif" alt="Slide 2"></swiper-slide> -->
+    <swiper-slide><img src="assets/covers/6.png" alt="Slide 3"></swiper-slide>
+    <swiper-slide><img src="assets/covers/5.png" alt="Slide 4"></swiper-slide>
+  </swiper-container>
 
   <ion-card>
     <ion-card-content class="categories">
@@ -33,24 +40,24 @@
     </ion-card-content>
   </ion-card>
 
-  <ion-row class="ion-justify-content-center">
+  <ion-row class="row">
     
     <ng-container *ngIf="!men_clicked && !women_clicked">
-      <ion-col  *ngFor="let article of filteredArticles">
+      <ion-col  *ngFor="let article of filteredArticles" class="col-12">
         <app-clothes-article [article]="article"></app-clothes-article>
       </ion-col>
-      <ion-col  *ngFor="let favarticle of fav_articles">
+      <ion-col  *ngFor="let favarticle of fav_articles" class="col-12">
         <app-favarticles [article]="favarticle"></app-favarticles>
       </ion-col>
     </ng-container>
 
     <ng-container *ngIf="men_clicked">
-      <ion-col *ngFor="let article of filteredArticles">
+      <ion-col *ngFor="let article of filteredArticles" class="col-12">
         <ng-container *ngIf="article.category == 'man'">
           <app-clothes-article [article]="article"></app-clothes-article>
         </ng-container>
       </ion-col>
-      <ion-col  *ngFor="let favarticle of fav_articles">
+      <ion-col  *ngFor="let favarticle of fav_articles" class="col-12">
         <ng-container *ngIf="favarticle.category == 'man'">
           <app-favarticles [article]="favarticle"></app-favarticles>
         </ng-container>
@@ -58,18 +65,20 @@
     </ng-container>
 
     <ng-container *ngIf="women_clicked">
-      <ion-col  *ngFor="let article of filteredArticles">
+      <ion-col  *ngFor="let article of filteredArticles" class="col-12">
         <ng-container *ngIf="article.category == 'woman'">
           <app-clothes-article [article]="article"></app-clothes-article>
         </ng-container>
       </ion-col>
-      <ion-col *ngFor="let favarticle of fav_articles">
+      <ion-col *ngFor="let favarticle of fav_articles" class="col-12">
         <ng-container *ngIf="favarticle.category == 'woman'">
           <app-favarticles [article]="favarticle"></app-favarticles>
         </ng-container>
       </ion-col>
     </ng-container>
+
     
   </ion-row>
+
   
 </ion-content>

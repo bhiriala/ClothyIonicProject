@@ -1,3 +1,4 @@
+
 .logout-button {
     font-size: 20px;
     position: absolute;
@@ -14,22 +15,43 @@
     margin-top: 10px;
 }
 
-.profile-picture {
-    width: 20%;
-    height: auto;
-    border-radius: 60%;
-    overflow: hidden;
-    margin-left: 38%;
-    margin-top: -15%;
-    // margin-bottom: 8px;
+// .profile-picture {
+//     width: 20%;
+//     height: auto;
+//     border-radius: 60%;
+//     overflow: hidden;
+//     
+//     
+// }
+.profile-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
+
+.profile-picture-container {
+    width: 150px; 
+    height: 150px; 
+    border-radius: 50%;
+    overflow: hidden;
+    margin-bottom: 20px; 
+    margin-top: 20px;
+    margin-top: -15%;
+    margin-left: 30%;
+}
+
+.profile-picture {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
 
 .personal-info ion-item{
     margin-left: 20%;
     display: flex;
     flex-direction: column;
     align-items: center;
-    // margin-bottom: 20px;
 }
 
 .info-icon {
@@ -47,11 +69,13 @@
     border-radius: 30px;
     --border-radius: 30px;
     --border-color: rgba(240, 248, 255, 0);
+    box-shadow: 0 3px 3px rgba(0, 0, 0, 0.481); 
+
 }
 
 .text {
-    font-size: 1.2rem; /* Adjust as needed */
-    margin-left: 7%;
+    font-size: 1.2rem;
+    margin-left: 20px;
     margin-bottom: 10px;
 }
 

@@ -1,19 +1,18 @@
 <ion-card class="clothes-card">
-  
-  <img *ngIf="article.image" loading="lazy" alt="{{ article.name }}" class="img"  [src]="article.image"/>
+  <ion-img alt="" [src]="article.image"></ion-img>
   <ion-card-content>
-    <ion-row>
-      <ion-col>
-        <ion-card-title class="hover-effect"  style="font-size: 17px; color: rgb(183, 232, 222); cursor: pointer;"  (click)="showArticleProfile(article)">{{ article.username }}</ion-card-title>
-        <ion-card-subtitle>{{ article.name }}</ion-card-subtitle>
-        <ion-card-subtitle>{{ article.price }}DT</ion-card-subtitle>
-        <ion-card-subtitle>{{ article.category }}</ion-card-subtitle>
-
-        <ion-icon (click)="toggleFavorite(article)" style="font-size: 20px;" name="heart" [ngClass]="{'favorite': isFavorite, 'not-favorite': !isFavorite}"></ion-icon>
-      </ion-col>
-    </ion-row>
-
-    <ion-button (click)="addCart(article)" expand="block" class="add-button">Add to cart</ion-button>
-    
+  <ion-row class="row">
+    <ion-col class="col-9">
+      <ion-card-title class="hover-effect"  style="font-size: 17px; color: rgb(22, 164, 136); cursor: pointer;"  (click)="showArticleProfile(article)">{{ article.username }}</ion-card-title>
+      <ion-card-subtitle>Name: {{ article.name }}</ion-card-subtitle>
+      <ion-card-subtitle>Price: {{ article.price }}DT</ion-card-subtitle>
+    </ion-col>
+    <ion-col class="col-3">
+      <ion-card-subtitle>{{ article.category }}</ion-card-subtitle>
+      <ion-icon (click)="toggleFavorite(article)" style="font-size: 30px;" name="heart" [ngClass]="{'favorite': isFavorite, 'not-favorite': !isFavorite}"></ion-icon>
+    </ion-col>
+  </ion-row>
+  
+  <ion-button (click)="addCart(article)" expand="block" class="add-button">Add to cart</ion-button>
   </ion-card-content>
 </ion-card>

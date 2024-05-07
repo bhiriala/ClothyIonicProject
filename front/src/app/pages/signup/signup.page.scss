@@ -3,86 +3,76 @@
     flex-direction: column;
     justify-content: space-between;
     align-items: center;
-    height: 100%;
+    height: fit-content;
   }
+
+  .background-image {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    background-image: url('../../../assets/login.png');
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed; 
+  }
+  
   
   .signupcontent {
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    background-image: url('../../../assets/signup.png');
-    background-size: cover;
-    background-position: center;
-    height: 100%;
-    position: fixed;
-    width: 100%;
   }
   .signup-section {
-    margin-top: 145px;
-    margin-left: 14px;
-    margin-right: 10px;
-    font-size: 44px;
-    color: rgb(55, 52, 52);
+    margin-top: 30px;
+    margin-left: -10px;
+    font-size: 2em; 
+    color: black;
+    font-weight: bold;
   }
   .inputs{
-    margin-bottom: 50px;
-    margin-right: 20px;
+    margin-bottom: 30px;
+    margin-right: 10px;
+
   }
   .color{
-    margin-left: 50px;
-    width: 290px;
-    border-radius: 20px;
-    background-color:rgb(252, 252, 252,0.1);
+    background-color:rgba(252, 252, 252, 0);
 }
 
-.password-item {
+
+.takePicButton {
   color: black;
+  background: rgb(91, 188, 164); 
+  border: 2px solid black; 
   border-radius: 10px;
---background: rgba(183, 181, 177, 0.37); 
-margin-bottom: 14px; 
 }
+
 .image-item {
-  color: black;
-  border-radius: 10px;
---background: rgba(183, 181, 177, 0.37); 
+  --background: rgba(255, 255, 255, 0); 
+  border: 1px solid rgba(0, 0, 0, 0); 
+
 }
 
-.email-item {
+ion-item {
   color: black;
   border-radius: 10px;
-  margin-bottom: 14px;
---background: rgba(183, 181, 177, 0.37);
-}
-.phone-item {
-  color: black;
-  border-radius: 10px;
---background: rgba(183, 181, 177, 0.37);
-margin-bottom: 14px; 
-}
-
-.username-item {
-  color: black;
-  border-radius: 10px;
+  border: 2px solid black; 
   margin-top: 15px;
---background: rgba(183, 181, 177, 0.37);
-margin-bottom: 14px; 
+  --background: rgba(255, 255, 255, 0.37);
+  margin-bottom: 14px; 
 }
-.button{
-  margin-left: 24px;
-  margin-bottom: auto;
-  width: 120px;
-  margin-right: 55px;
+.signup{
+  border: 2px solid black; 
+  border-radius: 50px; 
+  box-shadow: 0 3px 3px rgba(0, 0, 0, 0.481); 
+  margin-top: -20px;
 }
-.password-item ion-icon {
-  margin-right: 8px; 
-}
-.email-item ion-icon {
-  margin-right: 8px; 
-}
-.username-item ion-icon {
-  margin-right: 8px; 
-}
-.phone-item ion-icon {
-  margin-right: 8px; 
+
+
+.linkToLogIn{
+  color: black;
+  margin-top: 40px;
 }

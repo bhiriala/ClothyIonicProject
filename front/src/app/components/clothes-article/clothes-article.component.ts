@@ -41,6 +41,7 @@ export class ClothesArticleComponent {
     try {
       const response = await axios.post(
         'http://localhost:5000/addToCart',
+        // 'http://localhost:5000/addToCart',
         {
           id: this.article._id,
           name: this.article.name,

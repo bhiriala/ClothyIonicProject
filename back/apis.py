@@ -296,23 +296,41 @@ def editArticle():
 
     user_password = get_jwt_identity()
     user = users.find_one({"password": user_password})
-
+    
+    #get favorites and articles of this user
     if user:
         my_articles = user.get("my_articles", [])
+        favs = user.get("favorite_articles", [])
 
         for article in my_articles:
             if "_id" in article and article["_id"] == id:
+                print("modif articl")
                 article["price"] = price
                 article["name"] = name
                 article["image"] = image
-                break
-        else:
-            return jsonify({"error": "Article not found"}), 404
-
+                
+                for a in favs:
+                    if "_id" in a and a["_id"] == id:
+                        print("modif fav")
+                        a["price"] = price
+                        a["name"] = name
+                        a["image"] = image
+                        break
+                
+            else:
+                return jsonify({"error": "Article not found"}), 404
+        
+        
+        articles.update_one(
+            {"_id": id}, {"$set": {"name": name, "price": price, "image": image}}
+        )
         users.update_one(
             {"password": user_password}, {"$set": {"my_articles": my_articles}}
         )
-        articles.update_one({"_id": id}, {"$set": {"name": name, "price": price, "image": image}})
+        #update liste des fav 
+        users.update_one(
+            {"password": user_password}, {"$set": {"favorite_articles": favs}}
+        )
 
         return jsonify({"msg": "L'article a bien été modifé"}), 200
     else:
@@ -323,25 +341,23 @@ def editArticle():
 def removeArticle():
     user_password = get_jwt_identity()
     user = users.find_one({"password": user_password})
-   
-    id = request.json.get("id")
-    
-    result = articles.delete_one({"_id": id})
-
-    # Check if the deletion was successful
-    if result.deleted_count == 1:
-        print("Item deleted successfully.")
-    else:
-        print("No item found with the specified ID.")
-
-    if user:
-        user["my_articles"] = [item for item in user["my_articles"] if item["_id"] != id]
-
-        users.update_one({"password": user_password}, {"$set": {"my_articles": user["my_articles"]}})
-
-        return jsonify({"msg": "L'article a bien été supprimé"}), 200
-    else:
+    if not user:
         return jsonify({"error": "User not found"}), 404
+
+    favs = user.get("favorite_articles", [])
+    article_id = request.json.get("id")
+
+    result = articles.delete_one({"_id": article_id})
+    if result.deleted_count == 0:
+        return jsonify({"error": "No article found with the specified ID."}), 404
+
+    favs = [fav for fav in favs if fav["_id"] != article_id]
+    users.update_one({"password": user_password}, {"$set": {"favorite_articles": favs}})
+
+    my_articles = [item for item in user.get("my_articles", []) if item["_id"] != article_id]
+    users.update_one({"password": user_password}, {"$set": {"my_articles": my_articles}})
+
+    return jsonify({"msg": "Article has been deleted successfully."}), 200
     
     
 
@@ -389,4 +405,5 @@ def removeFromCart():
 
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    # app.run(debug=True)
+    app.run(host="localhost")

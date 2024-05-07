@@ -10,8 +10,10 @@ import { HomePagePage } from './home-page.page';
 
 import { ClothesArticleModule } from '../../components/clothes-article/clothes-article.module';
 import { FavarticlesModule } from '../../components/favarticles/favarticles.module';
+import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 
 @NgModule({
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
   imports: [
     CommonModule,
     FormsModule,

@@ -3,7 +3,7 @@
     <ion-back-button defaultHref="/tabs/home-page" slot="start"></ion-back-button>
     <ion-icon name="shirt-outline" slot="start"></ion-icon>
     <ion-title slot="start">Reclothy</ion-title>
-    <ion-icon name="log-out-outline" (click)="logout()" class="logout-button"></ion-icon>
+    <ion-icon slot="end" name="log-out-outline" (click)="logout()" class="logout-button"></ion-icon>
   </ion-toolbar>
 </ion-header>
 
@@ -13,9 +13,13 @@
     <img [src]="covpic" class="couverture">
   </div>
 
+  <!-- <div class="profile-picture-container">
+    <img [src]="image" alt="Profile Picture" class="profile-picture">
+  </div> -->
   <div class="profile-picture-container">
     <img [src]="image" alt="Profile Picture" class="profile-picture">
-  </div>
+</div>
+
  
   <div class="personal-info">
     <ion-item lines="none">
@@ -43,7 +47,7 @@
 
   <ion-row class="ion-justify-content-center row articles-container">
     <ng-container *ngFor="let article of myarticles">
-        <app-myarticles class="col-6" [article]="article"></app-myarticles>
+        <app-myarticles class="col-12" [article]="article"></app-myarticles>
     </ng-container>
   </ion-row>
 </ion-content>

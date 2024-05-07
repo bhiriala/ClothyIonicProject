@@ -1,7 +1,16 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+  <ion-row>
+    <ion-title [routerLink]="['/main-page']">Reclothy</ion-title>
+  </ion-row>
+  </ion-toolbar>
+</ion-header>
+
 <ion-content [fullscreen]="true" class="content-container">
   <div class="signupcontent">  
-    <p class="signup-section"><i>Sign-Up</i></p>
-    <ion-list class="color inputs">
+    <div class="background-image"></div>
+    <p class="signup-section">Sign Up</p>
+    <ion-list class="color inputs input-container">
       <ion-item class="username-item">
         <ion-label position="floating"><ion-icon name="person-outline"></ion-icon>Username</ion-label>
         <ion-input type="text" placeholder="Enter username" [(ngModel)]="username"></ion-input>
@@ -23,12 +32,15 @@
       </ion-item>
 
       <ion-item class="image-item">    
-        <input type="file" accept="image/*" class="form-control" id="pictureInput" (change)="convertToBase64($event)" />
+        <!-- <input type="file" accept="image/*" class="form-control" id="pictureInput" (change)="convertToBase64($event)" /> -->
+        <ion-button color="bright" class="takePicButton" (click)="takePicture()">Select Profile Picture</ion-button>
       </ion-item>
     </ion-list>
 
     <div class="button">
-      <ion-button (click)="signUp()" shape="round" color="light" class="signup">Sign up</ion-button>
+      <ion-button (click)="signUp()" shape="round" color="warning" class="signup">Sign up</ion-button>
     </div>
+
+    <a class="linkToLogIn" [routerLink]="['/login']">Already have an account? Click to sign in</a>
   </div>
 </ion-content>

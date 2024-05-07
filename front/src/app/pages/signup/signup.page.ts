@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AlertController } from '@ionic/angular';
 import axios, { AxiosError } from 'axios';
+import { Camera, CameraResultType, CameraSource } from '@capacitor/camera';
+import { Capacitor } from '@capacitor/core'; 
 
 @Component({
   selector: 'app-signup',
@@ -102,5 +104,29 @@ export class SignupPage implements OnInit {
     });
 
     await alert.present();
+  }
+
+  
+  async takePicture() {
+    try {
+      const image = await Camera.getPhoto({
+        quality: 90,
+        allowEditing: true,
+        resultType: CameraResultType.Base64,
+        source: CameraSource.Prompt,
+        saveToGallery: true
+      });
+
+      if (image.base64String) {
+        if (Capacitor.getPlatform() === 'web') {
+          this.convertToBase64(image.base64String);
+        } else {
+          this.image = 'data:image/jpeg;base64,' + image.base64String;
+          console.log(this.image);
+        }
+      }
+    } catch (error) {
+      console.error("Error taking picture:", error);
+    }
   }
 }

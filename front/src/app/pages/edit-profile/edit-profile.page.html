@@ -14,7 +14,7 @@
   </div>
 
   <ion-item class="input-item">
-    <input class="selectpho" type="file" accept="image/*" (change)="convertToBase64($event)"/>
+    <ion-button color="bright" class="takePicButton" (click)="takePicture()">Select Profile Picture</ion-button>
   </ion-item>
 
     <ion-item class="input-item">
@@ -47,7 +47,7 @@
       </ion-button>
     </ion-item>
 
-    <ion-button expand="block" class="save-button" (click)="saveChanges()">Save Changes</ion-button>
+    <button expand="block" class="save-button" (click)="saveChanges()">Save Changes</button>
   </div>
 </ion-content>
 
