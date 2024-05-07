@@ -308,17 +308,21 @@ def editArticle():
                 article["price"] = price
                 article["name"] = name
                 article["image"] = image
-                
-                for a in favs:
-                    if "_id" in a and a["_id"] == id:
-                        print("modif fav")
-                        a["price"] = price
-                        a["name"] = name
-                        a["image"] = image
-                        break
+                break
                 
             else:
                 return jsonify({"error": "Article not found"}), 404
+                
+        # for a in favs:
+        #     if "_id" in a and a["_id"] == id:
+        #         print("modif fav")
+        #         a["price"] = price
+        #         a["name"] = name
+        #         a["image"] = image
+        #         break
+                
+        #     else:
+        #         return jsonify({"error": "Article not found"}), 404
         
         
         articles.update_one(

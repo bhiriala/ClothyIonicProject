@@ -117,10 +117,10 @@ export class EditProfilePage {
     try {
       const image = await Camera.getPhoto({
         quality: 90,
-        allowEditing: true,
+        // allowEditing: true,
         resultType: CameraResultType.Base64,
-        source: CameraSource.Prompt,
-        saveToGallery: true
+        // source: CameraSource.Prompt,
+        // saveToGallery: true
       });
 
       if (image.base64String) {
@@ -128,7 +128,7 @@ export class EditProfilePage {
           this.convertToBase64(image.base64String);
         } else {
           this.image = 'data:image/jpeg;base64,' + image.base64String;
-          console.log(this.image);
+          console.log("image updated");
         }
       }
     } catch (error) {
