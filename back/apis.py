@@ -25,6 +25,22 @@ app.config["JWT_SECRET_KEY"] = "skjdfbnbsrkjgb14541616"
 jwt = JWTManager(app)
 
 
+@app.route("/getAllUsers", methods=["GET"])
+def getUsers():
+    if users:
+        return dumps(users), 200
+
+    else:
+        return jsonify({"msg": "probleme dans la recuperation des utilisateurs"}), 401
+
+@app.route("/getAllArticles", methods=["GET"])
+def getArticles():
+    if articles:
+        return dumps(articles), 200
+    else:
+        return jsonify({"msg": "probleme dans la recuperation des articles"}), 401
+
+
 @app.route("/login", methods=["POST"])
 def login():
     expires_in = timedelta(days=1)
@@ -301,6 +317,8 @@ def editArticle():
     if user:
         my_articles = user.get("my_articles", [])
         favs = user.get("favorite_articles", [])
+        cart = user.get("cart", [])
+
 
         for article in my_articles:
             if "_id" in article and article["_id"] == id:
@@ -308,23 +326,22 @@ def editArticle():
                 article["price"] = price
                 article["name"] = name
                 article["image"] = image
+                
+        for a in favs:
+            if "_id" in a and a["_id"] == id:
+                print("modif fav")
+                a["price"] = price
+                a["name"] = name
+                a["image"] = image
+                break
+        for a in cart:
+            if "_id" in a and a["_id"] == id:
+                print("modif fav")
+                a["price"] = price
+                a["name"] = name
+                a["image"] = image
                 break
                 
-            else:
-                return jsonify({"error": "Article not found"}), 404
-                
-        # for a in favs:
-        #     if "_id" in a and a["_id"] == id:
-        #         print("modif fav")
-        #         a["price"] = price
-        #         a["name"] = name
-        #         a["image"] = image
-        #         break
-                
-        #     else:
-        #         return jsonify({"error": "Article not found"}), 404
-        
-        
         articles.update_one(
             {"_id": id}, {"$set": {"name": name, "price": price, "image": image}}
         )
@@ -335,7 +352,9 @@ def editArticle():
         users.update_one(
             {"password": user_password}, {"$set": {"favorite_articles": favs}}
         )
-
+        users.update_one(
+            {"password": user_password}, {"$set": {"cart": cart}}
+        )
         return jsonify({"msg": "L'article a bien été modifé"}), 200
     else:
         return jsonify({"error": "User not found"}), 404
