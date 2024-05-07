@@ -101,16 +101,21 @@ export class EditProfilePage {
   }
 
   
-  convertToBase64(event: any) {
-    const reader = new FileReader();
-    reader.readAsDataURL(event.target.files[0]);
-    reader.onload = () => {
-      this.image = reader.result as string;
-      console.log(this.image);
-    };
-    reader.onerror = error => {
-      console.log("Error: ", error);
-    };
+  // convertToBase64(event: any) {
+  //   const reader = new FileReader();
+  //   reader.readAsDataURL(event.target.files[0]);
+  //   reader.onload = () => {
+  //     this.image = reader.result as string;
+  //     console.log(this.image);
+  //   };
+  //   reader.onerror = error => {
+  //     console.log("Error: ", error);
+  //   };
+  // }
+
+  convertToBase64(base64String: string) { // Modification de la méthode pour accepter une chaîne de base64 directement
+    this.image = 'data:image/jpeg;base64,' + base64String;
+    console.log(this.image);
   }
 
   async takePicture() {
