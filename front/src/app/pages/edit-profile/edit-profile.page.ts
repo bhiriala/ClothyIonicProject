@@ -37,7 +37,7 @@ export class EditProfilePage {
   async getUserInfo() {
     const yourAccessToken = sessionStorage.getItem('token');
     try {
-      const response = await axios.get('http://localhost:5000/user_info', {
+      const response = await axios.get('http://192.168.1.110:5000/user_info', {
         headers: {
           Authorization: `Bearer ${yourAccessToken}`
         }
@@ -73,7 +73,7 @@ export class EditProfilePage {
   async saveChanges() {
     const yourAccessToken = sessionStorage.getItem('token');
     try {
-      const response = await axios.put('http://localhost:5000/editProfile', 
+      const response = await axios.put('http://192.168.1.110:5000/editProfile', 
       { username : this.username, phone : this.phone, email: this.email, new_password : this.password, image: this.image }, 
       {
         headers: {

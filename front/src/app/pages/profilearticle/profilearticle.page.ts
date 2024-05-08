@@ -19,7 +19,7 @@ export class ProfilearticlePage implements OnInit {
   async user_info_article() {
     const AccessToken = sessionStorage.getItem("token");
     try {
-      const response = await axios.get("http://localhost:5000/user_info_article", {
+      const response = await axios.get("http://192.168.1.110:5000/user_info_article", {
         headers: {
           Authorization: `Bearer ${AccessToken}`
         },

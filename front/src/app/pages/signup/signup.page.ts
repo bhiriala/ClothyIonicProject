@@ -39,7 +39,7 @@ export class SignupPage implements OnInit {
         await this.presentAlert('Image Required', 'Please select an image.');
         return;
       }
-      const response = await axios.post('http://localhost:5000/signup', { 
+      const response = await axios.post('http://192.168.1.110:5000/signup', { 
         image: this.image,
         username: this.username,
         email: this.email,

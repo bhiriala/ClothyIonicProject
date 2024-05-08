@@ -29,8 +29,8 @@ export class FavarticlesComponent{
       const yourAccessToken = sessionStorage.getItem('token');
       try {
         const response = await axios.post(
-          'http://localhost:5000/addToCart',
-          // 'http://localhost:5000/addToCart',
+          'http://192.168.1.110:5000/addToCart',
+          // 'http://192.168.1.110:5000/addToCart',
           {
             id: this.article._id,
             name: this.article.name,

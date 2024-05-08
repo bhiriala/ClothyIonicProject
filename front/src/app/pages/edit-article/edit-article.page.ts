@@ -22,7 +22,7 @@ export class EditArticlePage {
   async saveChanges() {
     const yourAccessToken = sessionStorage.getItem('token');
     try {
-      const response = await axios.put('http://localhost:5000/editArticle', 
+      const response = await axios.put('http://192.168.1.110:5000/editArticle', 
       { id: this.editedArticle._id, name : this.editedArticle.name, price : this.editedArticle.price, image: this.editedArticle.image  }, 
       {
         headers: {
@@ -43,7 +43,7 @@ export class EditArticlePage {
   async deleteArticle() {
     const yourAccessToken = sessionStorage.getItem('token');
     try {
-      const response = await axios.put('http://localhost:5000/removeArticle', 
+      const response = await axios.put('http://192.168.1.110:5000/removeArticle', 
       { id: this.editedArticle._id }, 
       {
         headers: {

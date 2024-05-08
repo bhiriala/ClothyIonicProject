@@ -11,7 +11,7 @@ export class FavoriteService {
 
   async addToFav(item: any) {
     const accesToken = sessionStorage.getItem("token");
-    const response = await axios.post("http://localhost:5000/addToFav",
+    const response = await axios.post("http://192.168.1.110:5000/addToFav",
     {
       id: item._id,
       price: item.price,
@@ -34,7 +34,7 @@ export class FavoriteService {
 
   async removeFromFav(item: any){
     const accesToken = sessionStorage.getItem("token");
-    const response = await axios.delete('http://localhost:5000/removefromfavoris', {
+    const response = await axios.delete('http://192.168.1.110:5000/removefromfavoris', {
       headers: {
         Authorization: `Bearer ${accesToken}`
       },

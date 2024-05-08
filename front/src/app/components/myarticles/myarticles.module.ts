@@ -3,7 +3,7 @@ import { IonicModule } from '@ionic/angular';
 import { CommonModule } from '@angular/common';
 import { MyarticlesComponent } from './myarticles.component';
 
-import { RouterModule } from '@angular/router'; //to make the routerLink possible insiide the ion-card tag
+import { RouterModule } from '@angular/router'; //to make the routerLink possible inside the ion-card tag
 
 @NgModule({
   declarations: [

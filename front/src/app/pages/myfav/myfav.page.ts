@@ -18,7 +18,7 @@ export class MyfavPage implements OnInit {
   }
   async get_fav(){
     const AccessToken = sessionStorage.getItem("token")
-    const response = await axios.get("http://localhost:5000/get_fav",{
+    const response = await axios.get("http://192.168.1.110:5000/get_fav",{
       headers: {
         Authorization: `Bearer ${AccessToken}`
       }

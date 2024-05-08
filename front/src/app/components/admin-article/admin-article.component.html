@@ -1,0 +1,17 @@
+<ion-card  >
+  <ion-img alt="" [src]="article.image"></ion-img>
+  <ion-card-content>
+  <ion-row class="row">
+    <ion-col class="col-9">
+      <ion-card-subtitle>Name: {{ article.name }}</ion-card-subtitle>
+      <!-- <ion-card-subtitle>{{ article.image }}</ion-card-subtitle> -->
+    </ion-col>
+    <ion-col class="col-3">
+      <ion-icon  name="create-outline" class="icon"></ion-icon>
+    </ion-col>
+  </ion-row>
+  <ion-row class="row">
+    <button  (click)="delArticle()" class="col-6 delete">Delete article</button>
+  </ion-row>
+  </ion-card-content>
+</ion-card>

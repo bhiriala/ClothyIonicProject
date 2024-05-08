@@ -1,0 +1,50 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-icon name="shirt-outline" slot="start"></ion-icon>
+    <ion-title slot="start">Reclothy</ion-title>
+    <ion-icon slot="end" name="log-out-outline" (click)="logout()" class="logout-button"></ion-icon>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ion-card>
+    <ion-card-content class="categories">
+      <h1>Welcome Admin!</h1>
+    
+    </ion-card-content>
+  </ion-card>
+  <ion-card>
+    <ion-card-content>
+      <div class="buttons-container">
+        <ion-button class="button" color="dark" (click)="manageUsers()">
+          Manage users
+        </ion-button>
+        <ion-button class="button" color="dark"  (click)="manageArticles()">
+          Manage articles
+        </ion-button>
+      </div>
+    </ion-card-content>
+  </ion-card>
+
+  <ion-row class="row">
+    
+    <ng-container *ngIf="users_clicked">
+      <ion-row class="ion-justify-content-center row articles-container">
+        <ng-container *ngFor="let user of users">
+            <app-admin-users class="col-12" [article]="user"></app-admin-users>
+        </ng-container>
+      </ion-row>
+    </ng-container>
+
+    <ng-container *ngIf="articles_clicked">
+      <ion-row class="ion-justify-content-center row articles-container">
+        <ng-container *ngFor="let article of articles">
+            <app-admin-article class="col-12" [article]="article"></app-admin-article>
+        </ng-container>
+      </ion-row>
+    </ng-container>
+
+  </ion-row>
+
+
+</ion-content>

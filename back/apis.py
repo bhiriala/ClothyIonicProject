@@ -14,11 +14,13 @@ from datetime import timedelta
 from pymongo import MongoClient
 import random
 import string
+from bson import ObjectId
 
 app = Flask(__name__)
 CORS(app)
 client = MongoClient("localhost", 27017)
 db = client.reclothy
+admins = db.admin
 users = db.users
 articles = db.articles
 app.config["JWT_SECRET_KEY"] = "skjdfbnbsrkjgb14541616"
@@ -32,6 +34,21 @@ def login():
     password = request.json["password"]
     user = users.find({"$and": [{"email": email}, {"password": password}]})
     user_info = list(user)
+    if user_info:
+        access_token = create_access_token(identity=password, expires_delta=expires_in)
+        return jsonify(access_token=access_token), 200
+
+    else:
+        return jsonify({"msg": "ce compte n'existe pas"}), 401
+
+
+@app.route("/admin", methods=["POST"])
+def admin():
+    expires_in = timedelta(days=1)
+    email = request.json["email"]
+    password = request.json["password"]
+    admin = admins.find({"$and": [{"email": email}, {"password": password}]})
+    user_info = list(admin)
     if user_info:
         access_token = create_access_token(identity=password, expires_delta=expires_in)
         return jsonify(access_token=access_token), 200
@@ -102,6 +119,30 @@ def user_info():
         return dumps(user_info), 200
     else:
         return jsonify({"msg": "User not found"}), 404
+
+
+@app.route("/userss", methods=["GET"])
+@jwt_required()
+def userss():
+    user_data = list(users.find())
+    if user_data:
+        for user in user_data:
+            user["_id"] = str(user["_id"])
+        return jsonify(users=user_data), 200
+    else:
+        return jsonify({"msg": "probleme dans la recuperation des utilisateurs"}), 401
+
+
+@app.route("/articless", methods=["GET"])
+@jwt_required()
+def articless():
+    articles_data = list(articles.find())
+    if articles_data:
+        for article in articles_data:
+            article["_id"] = str(article["_id"])
+        return jsonify(articles=articles_data), 200
+    else:
+        return jsonify({"msg": "probleme dans la recuperation des articles"}), 401
 
 
 @app.route("/user_info_article", methods=["GET"])
@@ -298,39 +339,42 @@ def editArticle():
 
     if user:
         my_articles = user.get("my_articles", [])
-        fav_articles = user.get("favorite_articles", [])
-        cart_articles = user.get("cart", [])
+        favs = user.get("favorite_articles", [])
+        cart = user.get("cart", [])
 
-        for favarticle in fav_articles:
-            if favarticle["_id"] == id:
-                favarticle["price"] = price
-                favarticle["name"] = name
-                favarticle["image"] = image
+        for article in my_articles:
+            if "_id" in article and article["_id"] == id:
+                print("modif articl")
+                article["price"] = price
+                article["name"] = name
+                article["image"] = image
+
+        for a in favs:
+            if "_id" in a and a["_id"] == id:
+                print("modif fav")
+                a["price"] = price
+                a["name"] = name
+                a["image"] = image
                 break
-        for myarticle in my_articles:
-            if myarticle["_id"] == id:
-                myarticle["price"] = price
-                myarticle["name"] = name
-                myarticle["image"] = image
-                break
-        for cartarticle in cart_articles:
-            if cartarticle["_id"] == id:
-                cartarticle["price"] = price
-                cartarticle["name"] = name
-                cartarticle["image"] = image
+        for a in cart:
+            if "_id" in a and a["_id"] == id:
+                print("modif fav")
+                a["price"] = price
+                a["name"] = name
+                a["image"] = image
                 break
 
-        users.update_one(
-            {"password": user_password}, {"$set": {"my_articles": my_articles}}
-        )
-        users.update_one(
-            {"password": user_password}, {"$set": {"favorite_articles": fav_articles}}
-        )
-        users.update_one({"password": user_password}, {"$set": {"cart": cart_articles}})
         articles.update_one(
             {"_id": id}, {"$set": {"name": name, "price": price, "image": image}}
         )
-
+        users.update_one(
+            {"password": user_password}, {"$set": {"my_articles": my_articles}}
+        )
+        # update liste des fav
+        users.update_one(
+            {"password": user_password}, {"$set": {"favorite_articles": favs}}
+        )
+        users.update_one({"password": user_password}, {"$set": {"cart": cart}})
         return jsonify({"msg": "L'article a bien été modifé"}), 200
     else:
         return jsonify({"error": "User not found"}), 404
@@ -400,6 +444,7 @@ def removeArticle():
         return jsonify({"error": "User not found"}), 404
 
     favs = user.get("favorite_articles", [])
+    cart_articles = user.get("cart", [])
     article_id = request.json.get("id")
 
     result = articles.delete_one({"_id": article_id})
@@ -407,7 +452,11 @@ def removeArticle():
         return jsonify({"error": "No article found with the specified ID."}), 404
 
     favs = [fav for fav in favs if fav["_id"] != article_id]
+    cart_articles = [
+        article for article in cart_articles if article["_id"] != article_id
+    ]
     users.update_one({"password": user_password}, {"$set": {"favorite_articles": favs}})
+    users.update_one({"password": user_password}, {"$set": {"cart": cart_articles}})
 
     my_articles = [
         item for item in user.get("my_articles", []) if item["_id"] != article_id
@@ -415,8 +464,102 @@ def removeArticle():
     users.update_one(
         {"password": user_password}, {"$set": {"my_articles": my_articles}}
     )
+    for user in users.find():
+        favs = user.get("favorite_articles", [])
+        myarticles = user.get("my_articles", [])
+        cartarticles = user.get("cart", [])
+        favs = [
+            fav for fav in favs if fav["_id"] != article_id
+        ]  # Convert string to ObjectId
+        cartarticles = [
+            article for article in cartarticles if article["_id"] != article_id
+        ]  # Convert string to ObjectId
+        myarticles = [
+            item for item in myarticles if item["_id"] != article_id
+        ]  # Convert string to ObjectId
+        users.update_one(
+            {"_id": user["_id"]},
+            {
+                "$set": {
+                    "favorite_articles": favs,
+                    "my_articles": myarticles,
+                    "cart": cartarticles,
+                }
+            },
+        )
 
     return jsonify({"msg": "Article has been deleted successfully."}), 200
+
+
+@app.route("/delArticle", methods=["PUT"])
+@jwt_required()
+def delArticle():
+    user_password = get_jwt_identity()
+    user = admins.find_one({"password": user_password})
+    if not user:
+        return jsonify({"error": "User not found"}), 404
+    article_id = request.json.get("id")
+    result = articles.delete_one({"_id": article_id})  # Convert string to ObjectId
+    if result.deleted_count == 0:
+        return jsonify({"error": "No article found with the specified ID."}), 404
+    for user in users.find():
+        favs = user.get("favorite_articles", [])
+        myarticles = user.get("my_articles", [])
+        cartarticles = user.get("cart", [])
+        favs = [
+            fav for fav in favs if fav["_id"] != article_id
+        ]  # Convert string to ObjectId
+        cartarticles = [
+            article for article in cartarticles if article["_id"] != article_id
+        ]  # Convert string to ObjectId
+        myarticles = [
+            item for item in myarticles if item["_id"] != article_id
+        ]  # Convert string to ObjectId
+        users.update_one(
+            {"_id": user["_id"]},
+            {
+                "$set": {
+                    "favorite_articles": favs,
+                    "my_articles": myarticles,
+                    "cart": cartarticles,
+                }
+            },
+        )
+    return jsonify({"msg": "Article has been deleted successfully."}), 200
+
+
+@app.route("/deluser", methods=["PUT"])
+@jwt_required()
+def deluser():
+    user_password = get_jwt_identity()
+    user = admins.find_one({"password": user_password})
+    if not user:
+        return jsonify({"error": "User not found"}), 404
+    user_id = request.json.get("id")
+    usere = users.find_one({"_id": ObjectId(user_id)})
+    if not usere:
+        return jsonify({"error": "No user found with the specified ID."}), 404
+    users.delete_one({"_id": ObjectId(user_id)})
+    for article in usere.get("my_articles", []):
+        articles.delete_one({"_id": article.get("_id")})
+        for user in users.find():
+            favs = user.get("favorite_articles", [])
+            myarticles = user.get("my_articles", [])
+            cartarticles = user.get("cart", [])
+            favs = [fav for fav in favs if fav["_id"] != article.get("_id")]
+            cartarticles = [a for a in cartarticles if a["_id"] != article.get("_id")]
+            myarticles = [a for a in myarticles if a["_id"] != article.get("_id")]
+            users.update_one(
+                {"_id": user["_id"]},
+                {
+                    "$set": {
+                        "favorite_articles": favs,
+                        "my_articles": myarticles,
+                        "cart": cartarticles,
+                    }
+                },
+            )
+    return jsonify({"msg": "User has been deleted successfully."}), 200
 
 
 @app.route("/editProfile", methods=["PUT"])
@@ -464,4 +607,4 @@ def removeFromCart():
 
 if __name__ == "__main__":
     # app.run(debug=True)
-    app.run(host="localhost")
+    app.run(host="192.168.1.110")
