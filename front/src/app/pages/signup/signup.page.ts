@@ -39,7 +39,7 @@ export class SignupPage implements OnInit {
         await this.presentAlert('Image Required', 'Please select an image.');
         return;
       }
-      const response = await axios.post('http://192.168.1.110:5000/signup', { 
+      const response = await axios.post('http://localhost:5000/signup', { 
         image: this.image,
         username: this.username,
         email: this.email,
@@ -96,21 +96,9 @@ export class SignupPage implements OnInit {
     await alert.present();
   }
 
-  // convertToBase64(event: any) {
-  //   const reader = new FileReader();
-  //   reader.readAsDataURL(event.target.files[0]);
-  //   reader.onload = () => {
-  //     this.image = reader.result as string;
-  //     console.log(this.image);
-  //   };
-  //   reader.onerror = error => {
-  //     console.log("Error: ", error);
-  //   };
-  // }
 
   convertToBase64(base64String: string) { // Modification de la méthode pour accepter une chaîne de base64 directement
     this.image = 'data:image/jpeg;base64,' + base64String;
-    console.log(this.image);
   }
 
   
@@ -129,7 +117,6 @@ export class SignupPage implements OnInit {
           this.convertToBase64(image.base64String);
         } else {
           this.image = 'data:image/jpeg;base64,' + image.base64String;
-          console.log(this.image);
         }
       }
     } catch (error) {

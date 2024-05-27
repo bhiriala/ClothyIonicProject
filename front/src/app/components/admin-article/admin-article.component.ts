@@ -18,7 +18,7 @@ export class AdminArticleComponent  implements OnInit {
   async delArticle() {
     const yourAccessToken = sessionStorage.getItem('token');
     try {
-      const response = await axios.put('http://192.168.1.110:5000/delArticle', 
+      const response = await axios.put('http://localhost:5000/delArticle', 
       { id: this.article._id }, 
       {
         headers: {

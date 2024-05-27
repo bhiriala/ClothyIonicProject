@@ -20,7 +20,7 @@ export class CartPage implements OnInit {
   async getCartItems() {
     const accessToken = sessionStorage.getItem("token");
     try {
-      const response = await axios.get('http://192.168.1.110:5000/get_cart', {
+      const response = await axios.get('http://localhost:5000/get_cart', {
         headers: {
           Authorization: `Bearer ${accessToken}` 
         }
@@ -47,7 +47,7 @@ export class CartPage implements OnInit {
   async removeItem(item: any){
     const accessToken = sessionStorage.getItem("token");
     try {
-      const response = await axios.put(`http://192.168.1.110:5000/remove_from_cart`, 
+      const response = await axios.put(`http://localhost:5000/remove_from_cart`, 
       { id : item._id },
       {
         headers: {

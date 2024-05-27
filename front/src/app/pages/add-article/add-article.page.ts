@@ -48,7 +48,7 @@ export class AddArticlePage {
 
   async addArticle() {
     const accessToken = sessionStorage.getItem("token");
-    const response = await axios.post("http://192.168.1.110:5000/addArticle", {
+    const response = await axios.post("http://localhost:5000/addArticle", {
       price: this.price,
       name: this.name,
       image: this.image,

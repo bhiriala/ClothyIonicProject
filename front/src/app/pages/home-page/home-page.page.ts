@@ -28,7 +28,7 @@ export class HomePagePage implements OnInit {
   async getArticles() {
     try {
       const accessToken = sessionStorage.getItem("token");
-      const response = await axios.get("http://192.168.1.110:5000/get_articles", {
+      const response = await axios.get("http://localhost:5000/get_articles", {
         headers: {
           Authorization: `Bearer ${accessToken}`
         }

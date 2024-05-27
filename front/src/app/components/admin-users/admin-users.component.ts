@@ -16,7 +16,7 @@ export class AdminUsersComponent  implements OnInit {
     console.log(this.article._id)
     const yourAccessToken = sessionStorage.getItem('token');
     try {
-      const response = await axios.put('http://192.168.1.110:5000/deluser', 
+      const response = await axios.put('http://localhost:5000/deluser', 
       { id: this.article._id }, 
       {
         headers: {

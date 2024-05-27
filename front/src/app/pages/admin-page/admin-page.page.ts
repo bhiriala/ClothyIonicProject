@@ -28,7 +28,7 @@ export class AdminPagePage implements OnInit {
 
   async allUsers(){
     const AccessToken = sessionStorage.getItem("token")
-    const response = await axios.get("http://192.168.1.110:5000/userss",{
+    const response = await axios.get("http://localhost:5000/userss",{
       headers: {
         Authorization: `Bearer ${AccessToken}`
       }
@@ -42,7 +42,7 @@ export class AdminPagePage implements OnInit {
 
   async allArticles(){
     const AccessToken = sessionStorage.getItem("token")
-    const response = await axios.get("http://192.168.1.110:5000/articless",{
+    const response = await axios.get("http://localhost:5000/articless",{
       headers: {
         Authorization: `Bearer ${AccessToken}`
       }

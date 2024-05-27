@@ -27,7 +27,7 @@ export class LoginPage implements OnInit {
       await alert.present();
     } else {
       try {
-        const response = await axios.post('http://192.168.1.110:5000/login', { email: this.email, password: this.password });
+        const response = await axios.post('http://localhost:5000/login', { email: this.email, password: this.password });
         if (response.status === 200 && response.data.access_token){
           console.log("this came from the backend", response.data);
           sessionStorage.setItem("token", response.data.access_token);
@@ -62,7 +62,7 @@ export class LoginPage implements OnInit {
       await alert.present();
     } else {
       try {
-        const response = await axios.post('http://192.168.1.110:5000/admin', { email: this.email, password: this.password });
+        const response = await axios.post('http://localhost:5000/admin', { email: this.email, password: this.password });
         if (response.status === 200 && response.data.access_token){
           console.log("this came from the backend", response.data);
           sessionStorage.setItem("token", response.data.access_token);

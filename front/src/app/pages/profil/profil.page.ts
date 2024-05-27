@@ -16,7 +16,7 @@ export class ProfilPage implements OnInit {
   
   async user_info(){
     const AccessToken = sessionStorage.getItem("token")
-    const response = await axios.get("http://192.168.1.110:5000/user_info",{
+    const response = await axios.get("http://localhost:5000/user_info",{
       headers: {
         Authorization: `Bearer ${AccessToken}`
       }
