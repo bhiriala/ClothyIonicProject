@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import axios from 'axios';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class FavoriteService {
   private favItems: any[] = [];
@@ -10,40 +10,44 @@ export class FavoriteService {
   constructor() {}
 
   async addToFav(item: any) {
-    const accesToken = sessionStorage.getItem("token");
-    const response = await axios.post("http://localhost:5000/addToFav",
-    {
-      id: item._id,
-      price: item.price,
-      username:item.username,
-      name: item.name,
-      image: item.image,
-      category: item.category
-    },
-    {
-      headers: {
-        Authorization: `Bearer ${accesToken}`
+    const accesToken = sessionStorage.getItem('token');
+    const response = await axios.post(
+      'http://localhost:5000/addToFav',
+      {
+        id: item._id,
+        price: item.price,
+        username: item.username,
+        name: item.name,
+        image: item.image,
+        category: item.category,
+      },
+      {
+        headers: {
+          Authorization: `Bearer ${accesToken}`,
+        },
       }
-    });
-    if (response.status == 200 ){
+    );
+    if (response.status == 200) {
       window.location.reload();
-      console.log("success");
+      console.log('success');
     }
-
   }
 
-  async removeFromFav(item: any){
-    const accesToken = sessionStorage.getItem("token");
-    const response = await axios.delete('http://localhost:5000/removefromfavoris', {
-      headers: {
-        Authorization: `Bearer ${accesToken}`
-      },
-        data: { name: item.name }
-    });
+  async removeFromFav(item: any) {
+    const accesToken = sessionStorage.getItem('token');
+    const response = await axios.delete(
+      'http://localhost:5000/removefromfavoris',
+      {
+        headers: {
+          Authorization: `Bearer ${accesToken}`,
+        },
+        data: { name: item.name },
+      }
+    );
 
-    if (response.status == 200 ){
+    if (response.status == 200) {
       window.location.reload();
-      console.log("success");
+      console.log('success');
     }
 
     // const index = this.favItems.indexOf(item);

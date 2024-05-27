@@ -93,6 +93,14 @@
   border-radius: 50px; 
   box-shadow: 0 6px 3px rgba(0, 0, 0, 0.1); 
 }
+.signinadmin{
+  flex: 1;
+  margin: 10px;
+  border: 2px solid black; 
+  --border-radius: 50px; 
+  border-radius: 50px; 
+  box-shadow: 0 6px 3px rgba(0, 0, 0, 0.1); 
+}
 
 .signin:hover, .signup:hover {
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); 

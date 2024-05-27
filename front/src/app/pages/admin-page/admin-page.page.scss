@@ -1,11 +1,15 @@
-// .logout-button {
-//     font-size: 20px;
-//     position: absolute;
-//     top: 12px;
-//     right: 12px;
-// }
+.logout-button {
+    font-size: 20px;
+    position: absolute;
+    top: 12px;
+    right:5%;
+}
 
 .buttons-container{
     display: flex;
     justify-content: center;
+}
+.logo{
+    position: absolute;
+    left:5%;
 }

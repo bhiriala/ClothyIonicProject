@@ -46,12 +46,12 @@ export class ClothesArticleComponent {
           id: this.article._id,
           name: this.article.name,
           price: this.article.price,
-          image: this.article.image
+          image: this.article.image,
         },
         {
           headers: {
-            Authorization: `Bearer ${yourAccessToken}`
-          }
+            Authorization: `Bearer ${yourAccessToken}`,
+          },
         }
       );
       if (response.status == 200) {
@@ -64,7 +64,7 @@ export class ClothesArticleComponent {
     const toast = await this.toastController.create({
       message: 'Successfully added to cart',
       duration: 500,
-      position: 'bottom'
+      position: 'bottom',
     });
     toast.present();
   }

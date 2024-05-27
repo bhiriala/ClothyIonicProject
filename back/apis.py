@@ -168,10 +168,10 @@ def get_articles():
         favorite_articles = user.get("favorite_articles", [])
         all_articles = [article for article in articless if article["_id"]]
         favorite_ids = [article["_id"] for article in favorite_articles]
-        men = [article for article in all_articles if ((article["category"] == "man"))]
-        women = [
-            article for article in all_articles if ((article["category"] == "woman"))
-        ]
+        # men = [article for article in all_articles if ((article["category"] == "man"))]
+        # women = [
+        #     article for article in all_articles if ((article["category"] == "woman"))
+        # ]
         articless = [
             article for article in articless if article["_id"] not in favorite_ids
         ]
@@ -179,8 +179,9 @@ def get_articles():
         data_to_return = {
             "favorite_articles": favorite_articles,
             "articles": articless,
-            "men": men,
-            "women": women,
+            "all_articles": all_articles,
+            # "men": men,
+            # "women": women,
         }
         return dumps(data_to_return), 200
     else:

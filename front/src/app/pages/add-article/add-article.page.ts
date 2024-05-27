@@ -18,7 +18,8 @@ export class AddArticlePage {
 
   constructor() {}
 
-  convertToBase64(base64String: string) { // Modification de la méthode pour accepter une chaîne de base64 directement
+  convertToBase64(base64String: string) {
+    // Modification de la méthode pour accepter une chaîne de base64 directement
     this.image = 'data:image/jpeg;base64,' + base64String;
     console.log(this.image);
   }
@@ -30,7 +31,7 @@ export class AddArticlePage {
         allowEditing: true,
         resultType: CameraResultType.Base64,
         source: CameraSource.Prompt,
-        saveToGallery: true
+        saveToGallery: true,
       });
 
       if (image.base64String) {
@@ -42,26 +43,29 @@ export class AddArticlePage {
         }
       }
     } catch (error) {
-      console.error("Error taking picture:", error);
+      console.error('Error taking picture:', error);
     }
   }
 
   async addArticle() {
-    const accessToken = sessionStorage.getItem("token");
-    const response = await axios.post("http://localhost:5000/addArticle", {
-      price: this.price,
-      name: this.name,
-      image: this.image,
-      category: this.category
-    }, {
-      headers: {
-        Authorization: `Bearer ${accessToken}`
+    const accessToken = sessionStorage.getItem('token');
+    const response = await axios.post(
+      'http://localhost:5000/addArticle',
+      {
+        price: this.price,
+        name: this.name,
+        image: this.image,
+        category: this.category,
+      },
+      {
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+        },
       }
-    });
+    );
     if (response.status === 200) {
       window.location.reload();
-      console.log("success");
+      console.log('success');
     }
   }
-
 }

@@ -13,22 +13,21 @@ export class MyfavPage implements OnInit {
   constructor(public favService: FavoriteService) {}
 
   ngOnInit() {
-    this.get_fav()
+    this.get_fav();
     // this.calculateTotal();
   }
-  async get_fav(){
-    const AccessToken = sessionStorage.getItem("token")
-    const response = await axios.get("http://localhost:5000/get_fav",{
+  async get_fav() {
+    const AccessToken = sessionStorage.getItem('token');
+    const response = await axios.get('http://localhost:5000/get_fav', {
       headers: {
-        Authorization: `Bearer ${AccessToken}`
-      }
-    })
-    console.log(response.data)
-    if(response.status==200){
-      this.favItems=response.data;
-      console.log("getting favs success")
-    }   
-
+        Authorization: `Bearer ${AccessToken}`,
+      },
+    });
+    console.log(response.data);
+    if (response.status == 200) {
+      this.favItems = response.data;
+      console.log('getting favs success');
+    }
   }
   // calculateTotal(): number {
   //   let total : number= 0;
@@ -43,5 +42,4 @@ export class MyfavPage implements OnInit {
     // // this.favItems = this.favService.getFavItems(); // Update cartItems after removal
     // this.calculateTotal()// Recalculate total after removal
   }
-
 }

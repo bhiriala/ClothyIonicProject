@@ -5,7 +5,7 @@ import axios from 'axios';
 @Component({
   selector: 'app-cart',
   templateUrl: './cart.page.html',
-  styleUrls: ['./cart.page.scss']
+  styleUrls: ['./cart.page.scss'],
 })
 export class CartPage implements OnInit {
   cartItems: any[] = [];
@@ -18,18 +18,18 @@ export class CartPage implements OnInit {
   }
 
   async getCartItems() {
-    const accessToken = sessionStorage.getItem("token");
+    const accessToken = sessionStorage.getItem('token');
     try {
       const response = await axios.get('http://localhost:5000/get_cart', {
         headers: {
-          Authorization: `Bearer ${accessToken}` 
-        }
+          Authorization: `Bearer ${accessToken}`,
+        },
       });
 
       if (response.status === 200) {
         this.cartItems = response.data; // Update cartItems with fetched data
         this.calculateTotal(); // Calculate total after fetching items
-        console.log("total fl getcart melowl:", this.total)
+        console.log('total fl getcart melowl:', this.total);
       }
     } catch (error) {
       console.error('Error fetching cart items:', error);
@@ -44,22 +44,28 @@ export class CartPage implements OnInit {
     this.total = parseFloat(this.total.toFixed(2));
   }
 
-  async removeItem(item: any){
-    const accessToken = sessionStorage.getItem("token");
+  async removeItem(item: any) {
+    const accessToken = sessionStorage.getItem('token');
     try {
-      const response = await axios.put(`http://localhost:5000/remove_from_cart`, 
-      { id : item._id },
-      {
-        headers: {
-          Authorization: `Bearer ${accessToken}` 
+      const response = await axios.put(
+        `http://localhost:5000/remove_from_cart`,
+        { id: item._id },
+        {
+          headers: {
+            Authorization: `Bearer ${accessToken}`,
+          },
         }
-      });
+      );
 
       if (response.status === 200) {
-        this.getCartItems(); 
+        this.getCartItems();
       }
     } catch (error) {
       console.error('Error removing item from cart:', error);
     }
+  }
+
+  onItemClicked(paymentMethod: string) {
+    console.log('Payment method clicked:', paymentMethod);
   }
 }
