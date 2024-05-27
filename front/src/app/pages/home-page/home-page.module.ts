@@ -11,6 +11,8 @@ import { HomePagePage } from './home-page.page';
 import { ClothesArticleModule } from '../../components/clothes-article/clothes-article.module';
 import { FavarticlesModule } from '../../components/favarticles/favarticles.module';
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import { SearchhPipe } from './searchh.pipe';
+// import {Ng2SearchPipeModule} from 'ng2-search-filter';
 
 @NgModule({
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
@@ -20,8 +22,9 @@ import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
     IonicModule,
     HomePagePageRoutingModule,
     ClothesArticleModule,
-    FavarticlesModule
+    FavarticlesModule,
+  
   ],
-  declarations: [HomePagePage]
+  declarations: [HomePagePage, SearchhPipe]
 })
 export class HomePagePageModule {}

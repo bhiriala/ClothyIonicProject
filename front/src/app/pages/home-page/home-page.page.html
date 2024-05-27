@@ -11,7 +11,7 @@
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  <ion-searchbar placeholder="Search for clothes..." debounce="500"></ion-searchbar>
+  <ion-searchbar placeholder="Search for clothes..." debounce="500" [(ngModel)]="searchText"></ion-searchbar>
 
   <!-- <div class="image-container">
     <img src="../../../assets/maincover.gif" alt="Cover Image" class="cover">
@@ -43,21 +43,21 @@
   <ion-row class="row">
     
     <ng-container *ngIf="!men_clicked && !women_clicked">
-      <ion-col  *ngFor="let article of filteredArticles" class="col-12">
+      <ion-col class="col-12"  *ngFor="let article of filteredArticles | searchh : searchText " >
         <app-clothes-article [article]="article"></app-clothes-article>
       </ion-col>
-      <ion-col  *ngFor="let favarticle of fav_articles" class="col-12">
+      <ion-col  *ngFor="let favarticle of fav_articles | searchh : searchText" class="col-12">
         <app-favarticles [article]="favarticle"></app-favarticles>
       </ion-col>
     </ng-container>
 
     <ng-container *ngIf="men_clicked">
-      <ion-col *ngFor="let article of filteredArticles" class="col-12">
+      <ion-col *ngFor="let article of filteredArticles | searchh : searchText" class="col-12">
         <ng-container *ngIf="article.category == 'man'">
           <app-clothes-article [article]="article"></app-clothes-article>
         </ng-container>
       </ion-col>
-      <ion-col  *ngFor="let favarticle of fav_articles" class="col-12">
+      <ion-col  *ngFor="let favarticle of fav_articles | searchh : searchText" class="col-12">
         <ng-container *ngIf="favarticle.category == 'man'">
           <app-favarticles [article]="favarticle"></app-favarticles>
         </ng-container>
@@ -65,12 +65,12 @@
     </ng-container>
 
     <ng-container *ngIf="women_clicked">
-      <ion-col  *ngFor="let article of filteredArticles" class="col-12">
+      <ion-col  *ngFor="let article of filteredArticles | searchh : searchText" class="col-12">
         <ng-container *ngIf="article.category == 'woman'">
           <app-clothes-article [article]="article"></app-clothes-article>
         </ng-container>
       </ion-col>
-      <ion-col *ngFor="let favarticle of fav_articles" class="col-12">
+      <ion-col *ngFor="let favarticle of fav_articles | searchh : searchText" class="col-12">
         <ng-container *ngIf="favarticle.category == 'woman'">
           <app-favarticles [article]="favarticle"></app-favarticles>
         </ng-container>

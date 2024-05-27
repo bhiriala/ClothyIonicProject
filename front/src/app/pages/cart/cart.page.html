@@ -33,6 +33,45 @@
     </ion-card-content>
 
   </ion-card>
+  <ion-row class="row">
+    <button id="open-modal" expand="block"  class="col-6 buy">Buy</button>
+  </ion-row>  
+
+  <ion-modal trigger="open-modal" [initialBreakpoint]="1" [breakpoints]="[0, 1]">
+    <ng-template>
+      <div class="block">
+        <ion-list>
+          <ion-item class="item" (click)="onItemClicked('Mastercard/VISA')">
+            <ion-avatar slot="start">
+              <ion-img src="../../../assets/visa.png"></ion-img>
+            </ion-avatar>
+            <ion-label>
+              <h2>Mastercard/VISA</h2>
+            </ion-label>
+            <ion-icon name="chevron-forward-outline"></ion-icon>
+          </ion-item>
+          <ion-item class="item" (click)="onItemClicked('Paypal')">
+            <ion-avatar slot="start">
+              <ion-img src="../../../assets/paypal.png"></ion-img>
+            </ion-avatar>
+            <ion-label>
+              <h2>Paypal</h2>
+            </ion-label>
+            <ion-icon name="chevron-forward-outline"></ion-icon>
+          </ion-item>
+          <ion-item class="item" (click)="onItemClicked('E-Wallet')">
+            <ion-avatar slot="start">
+              <ion-img src="../../../assets/ewallet.png"></ion-img>
+            </ion-avatar>
+            <ion-label>
+              <h2>E-Wallet</h2>
+            </ion-label>
+            <ion-icon name="chevron-forward-outline"></ion-icon>
+          </ion-item>
+        </ion-list>  
+      </div>
+    </ng-template>
+  </ion-modal>
 
 
 

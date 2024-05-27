@@ -8,25 +8,28 @@ import axios from 'axios';
   styleUrls: ['./profilearticle.page.scss'],
 })
 export class ProfilearticlePage implements OnInit {
-  covpic = "../../../assets/couverture.png";
-  username: string = "";
-  email: string = "";
-  phone: string = "";
-  image: string = "";
+  covpic = '../../../assets/couverture.png';
+  username: string = '';
+  email: string = '';
+  phone: string = '';
+  image: string = '';
   article: any;
   myarticles = [];
 
   async user_info_article() {
-    const AccessToken = sessionStorage.getItem("token");
+    const AccessToken = sessionStorage.getItem('token');
     try {
-      const response = await axios.get("http://192.168.1.110:5000/user_info_article", {
-        headers: {
-          Authorization: `Bearer ${AccessToken}`
-        },
-        params: {
-          username: this.article.username
+      const response = await axios.get(
+        'http://localhost:5000/user_info_article',
+        {
+          headers: {
+            Authorization: `Bearer ${AccessToken}`,
+          },
+          params: {
+            username: this.article.username,
+          },
         }
-      });
+      );
       console.log(response.data);
       if (response.status == 200) {
         const { username, email, phone, image, my_articles } = response.data[0];
@@ -41,7 +44,7 @@ export class ProfilearticlePage implements OnInit {
     }
   }
 
-  constructor(private route: ActivatedRoute) { }
+  constructor(private route: ActivatedRoute) {}
 
   ngOnInit() {
     this.article = history.state.article;
