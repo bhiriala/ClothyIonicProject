@@ -115,7 +115,6 @@ export class SignupPage implements OnInit {
   convertToBase64(base64String: string) {
     // Modification de la méthode pour accepter une chaîne de base64 directement
     this.image = 'data:image/jpeg;base64,' + base64String;
-    console.log(this.image);
   }
 
   async takePicture() {
@@ -133,7 +132,6 @@ export class SignupPage implements OnInit {
           this.convertToBase64(image.base64String);
         } else {
           this.image = 'data:image/jpeg;base64,' + image.base64String;
-          console.log(this.image);
         }
       }
     } catch (error) {
