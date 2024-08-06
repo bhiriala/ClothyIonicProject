@@ -1,0 +1,52 @@
+version: '3'
+services:
+
+  frontend: 
+    container_name: reclothyfrontcontainer
+    image: reclothyfrontimage
+    build: 
+      context: ./front
+      dockerfile: Dockerfile   
+    ports:
+      - "8100:8100"
+    volumes:
+      - ./front:/app
+      - /app/node_modules
+    networks:
+      - app-network
+
+  backend:
+    container_name: reclothybackcontainer
+    image: reclothybackimage
+    build: 
+      context: ./back
+      dockerfile: Dockerfile
+    ports:
+      - "5000:5000"  
+    volumes:
+      - ./back:/app
+    depends_on:
+      - mongodb  
+    networks:
+      - app-network
+
+  mongodb:
+    image: mongo
+    ports:
+      - "6402:27017"
+    volumes:
+      - mongo-data:/data/db
+    networks:
+      - app-network
+
+volumes:
+  mongo-data:
+
+networks:
+  app-network:
+    driver: bridge
+    
+        
+
+
+        

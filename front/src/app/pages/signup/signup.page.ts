@@ -4,6 +4,7 @@ import { AlertController } from '@ionic/angular';
 import axios, { AxiosError } from 'axios';
 import { Camera, CameraResultType, CameraSource } from '@capacitor/camera';
 import { Capacitor } from '@capacitor/core';
+import { ToastController } from '@ionic/angular';
 
 @Component({
   selector: 'app-signup',
@@ -19,7 +20,8 @@ export class SignupPage implements OnInit {
 
   constructor(
     private router: Router,
-    private alertController: AlertController
+    private alertController: AlertController,
+    private toastController: ToastController
   ) {}
 
   ngOnInit() {}
@@ -54,8 +56,12 @@ export class SignupPage implements OnInit {
       });
 
       if (response.status === 200) {
-        alert('Account created successfully');
-        console.log('Account created successfully');
+        const toast = await this.toastController.create({
+          message: 'Account created Successfully',
+          duration: 600,
+          position: 'bottom',
+        });
+        toast.present();
         this.router.navigateByUrl('/login');
       } else {
         alert('Creation failed');
@@ -65,23 +71,47 @@ export class SignupPage implements OnInit {
         const axiosError = error as AxiosError;
         switch (axiosError.response?.status) {
           case 401:
-            alert('Invalid email format');
+            const alert = await this.alertController.create({
+              header: 'Inalid email format',
+              message: 'Please enter a valid email address.',
+              buttons: ['OK'],
+            });
+      
+            await alert.present();
+            // alert('Invalid email format');
             break;
           case 402:
-            alert('Email already used by another user');
+            const alertt = await this.alertController.create({
+              header: 'Email already used by another user',
+              message: 'Please enter an other email address.',
+              buttons: ['OK'],
+            });
+      
+            await alertt.present();
+            // alert('Email already used by another user');
             break;
           case 403:
-            alert('Phone number must contain only digits');
-            break;
-          case 404:
-            alert('Password already used by another user');
+            const alerttt = await this.alertController.create({
+              header: 'Phone number must contain only digits',
+              message: 'Please enter a valid phone number.',
+              buttons: ['OK'],
+            });
+      
+            await alerttt.present();
+            // alert('Phone number must contain only digits');
             break;
           case 405:
-            alert('username already used by another user');
+            const alertttt = await this.alertController.create({
+              header: 'username already used by another user',
+              message: 'Please enter an other username.',
+              buttons: ['OK'],
+            });
+      
+            await alertttt.present();
+            // alert('username already used by another user');
             break;
           default:
             console.error('Error:', error);
-            alert('An error occurred during signup');
         }
       } else {
         console.error('Error:', error);

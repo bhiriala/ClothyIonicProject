@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { Camera, CameraResultType, CameraSource } from '@capacitor/camera';
 import { Capacitor } from '@capacitor/core'; // Ajout de l'importation pour Capacitor
 import axios from 'axios';
+import { ToastController } from '@ionic/angular';
 
 // const { Storage } = Plugins; // Ajout de l'importation pour Storage
 
@@ -16,7 +17,7 @@ export class AddArticlePage {
   image: string = '';
   category: string = '';
 
-  constructor() {}
+  constructor(private toastController: ToastController) {}
 
   convertToBase64(base64String: string) {
     // Modification de la méthode pour accepter une chaîne de base64 directement
@@ -63,9 +64,26 @@ export class AddArticlePage {
         },
       }
     );
+  
     if (response.status === 200) {
+      const toast = await this.toastController.create({
+        message: 'Article added Successfully',
+        duration: 600,
+        position: 'bottom',
+      });
+      toast.present();
+  
+      // Attendre 1 seconde après le toast
+      await this.sleep(1300);
+  
       window.location.reload();
       console.log('success');
     }
   }
+  
+  // Fonction utilitaire sleep
+  sleep(ms: number) {
+    return new Promise(resolve => setTimeout(resolve, ms));
+  }
+  
 }

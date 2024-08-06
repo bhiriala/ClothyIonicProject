@@ -36,16 +36,30 @@ export class LoginPage implements OnInit {
         if (response.status === 200 && response.data.access_token) {
           console.log('this came from the backend', response.data);
           sessionStorage.setItem('token', response.data.access_token);
+          this.email = "";
+          this.password = "";
           this.router.navigate(['/tabs/home-page']);
         } else {
-          alert('Bad username or password');
+          const alert = await this.alertController.create({
+            header: 'Bad email or password',
+            message: 'Check your email and password',
+            buttons: ['OK'],
+          });
+          await alert.present();
+          // alert('Bad username or password');
         }
       } catch (error) {
         if (axios.isAxiosError(error)) {
           const axiosError = error as AxiosError;
           if (axiosError.response && axiosError.response.status === 401) {
             console.error('Error:', axiosError);
-            alert("ce compte n'existe pas");
+            const alert = await this.alertController.create({
+              header: 'Account not found',
+              message: "This account does not exist",
+              buttons: ['OK'],
+            });
+            await alert.present();
+            // alert("ce compte n'existe pas");
           } else {
             console.error('Error:', axiosError);
           }
@@ -74,16 +88,29 @@ export class LoginPage implements OnInit {
         if (response.status === 200 && response.data.access_token) {
           console.log('this came from the backend', response.data);
           sessionStorage.setItem('token', response.data.access_token);
+          this.email = "";
+          this.password = "";
           this.router.navigate(['/admin-page']);
         } else {
-          alert('Bad username or password');
+          const alert = await this.alertController.create({
+            header: 'Bad username or password',
+            message: 'Check your email and password',
+            buttons: ['OK'],
+          });
+          await alert.present();
         }
       } catch (error) {
         if (axios.isAxiosError(error)) {
           const axiosError = error as AxiosError;
           if (axiosError.response && axiosError.response.status === 401) {
             console.error('Error:', axiosError);
-            alert("ce compte n'existe pas");
+            const alert = await this.alertController.create({
+              header: 'Account not found',
+              message: "This account does not exist",
+              buttons: ['OK'],
+            });
+            await alert.present();
+            // alert("ce compte n'existe pas");
           } else {
             console.error('Error:', axiosError);
           }
